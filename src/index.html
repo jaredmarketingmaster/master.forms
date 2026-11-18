@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Precotizadora · Centro de Mando MMG (uso interno)</title>
+  <meta name="description" content="Herramienta interna de Marketing Masters Group para calcular en segundos el fee mensual, los pagos únicos y el primer pago de una propuesta.">
+  <link rel="canonical" href="{{pages.url}}">
+  <meta property="og:title" content="Precotizadora · Centro de Mando MMG">
+  <meta property="og:description" content="Herramienta interna de MMG. Sin datos de clientes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{pages.url}}">
+  <meta property="og:image" content="assets/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#2D3748">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{fonts.url}}">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script type="application/json" id="datos-tarifario">{{datos.tarifario}}</script>
+  <script src="assets/js/comun.js" defer></script>
+  <script src="assets/js/cotizador.js" defer></script>
+  <script src="assets/js/precotizadora.js" defer></script>
+</head>
+<body class="wd">
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/img/mmg-isotipo.png" width="28" height="28" alt="" fetchpriority="high">
+      <span class="brand-name">Centro de Mando <b>MMG</b></span>
+    </a>
+    <nav class="tabs" aria-label="Pantallas">
+      <a class="tab" href="index.html" aria-current="page"><span>Precotizadora</span></a>
+      <a class="tab" href="forms.html"><span>Master de Forms</span></a>
+    </nav>
+  </header>
+
+  <main class="canvas" id="contenido">
+    <div class="title-row">
+      <h1>Precotizadora</h1>
+      <p class="sub" id="sub-tarifario">Tarifario v1 del {{tarifario.generado}} · cada línea con su precio en ARS y en USD</p>
+    </div>
+
+    <div class="layout">
+      <section class="col-config" aria-labelledby="h-servicios">
+        <div class="panel">
+          <div class="panel-head">
+            <h2 id="h-servicios">Servicios</h2>
+            <button type="button" class="btn-text" id="btn-limpiar">Limpiar</button>
+          </div>
+          <div id="servicios" class="servicios">
+            <p class="cargando">Cargando tarifario…</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="switch-row">
+            <div class="switch-text">
+              <label for="descuento" class="switch-title" id="descuento-titulo">Descuento extraordinario</label>
+              <p class="switch-desc">Se aplica a cada línea no bonificada que lo admita. No aplica a I.C.T.</p>
+            </div>
+            <input type="checkbox" role="switch" id="descuento" class="switch">
+          </div>
+          <p class="aviso aviso-warning" id="descuento-aviso" hidden>Solo para clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared</p>
+        </div>
+      </section>
+
+      <section class="col-resultado" aria-labelledby="h-resultado">
+        <h2 id="h-resultado" class="sr-only">Resultado</h2>
+        <div class="totales" id="totales" aria-live="polite">
+          <table>
+            <caption class="sr-only">Totales en pesos y en dólares</caption>
+            <thead>
+              <tr><th scope="col"><span class="sr-only">Concepto</span></th><th scope="col" class="num">ARS</th><th scope="col" class="num">USD</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Fee mensual</th><td class="num" data-total="fee_mensual" data-moneda="ARS">—</td><td class="num" data-total="fee_mensual" data-moneda="USD">—</td></tr>
+              <tr><th scope="row">Pagos únicos</th><td class="num" data-total="setup_y_unicos" data-moneda="ARS">—</td><td class="num" data-total="setup_y_unicos" data-moneda="USD">—</td></tr>
+              <tr class="primer-pago"><th scope="row">Primer pago <span>(mes 1)</span></th><td class="num" data-total="primer_pago_mes_1" data-moneda="ARS">—</td><td class="num" data-total="primer_pago_mes_1" data-moneda="USD">—</td></tr>
+            </tbody>
+          </table>
+          <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Líneas</h2>
+            <span class="meta" id="lineas-cuenta">0 líneas</span>
+          </div>
+          <div class="tabla-wrap">
+            <table class="lineas">
+              <thead>
+                <tr><th scope="col">Servicio</th><th scope="col" class="num">Cant.</th><th scope="col" class="num">Lista</th><th scope="col" class="num">Final</th></tr>
+              </thead>
+              <tbody id="lineas"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Advertencias</h2></div>
+          <ul class="avisos" id="avisos"></ul>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Comando para Claude</h2>
+            <div class="segmented" role="group" aria-label="Moneda del comando">
+              <button type="button" data-moneda-cmd="ARS" aria-pressed="true">ARS</button>
+              <button type="button" data-moneda-cmd="USD" aria-pressed="false">USD</button>
+            </div>
+          </div>
+          <pre class="comando"><code id="comando">python _engine/quote_calculator.py --cliente &lt;slug&gt; --servicios &lt;servicios&gt; --moneda ARS</code></pre>
+          <div class="acciones">
+            <button type="button" class="btn-primary" id="btn-copiar-comando">Copiar comando para Claude</button>
+            <span class="estado-copia" id="estado-comando" role="status" aria-live="polite"></span>
+          </div>
+          <p class="meta">Se corre en MMG_Base_Operaciones. <code>&lt;slug&gt;</code> queda literal: la app no conoce al cliente.</p>
+        </div>
+      </section>
+    </div>
+
+    <footer class="pie">
+      Herramienta interna · no guarda datos · tarifario {{tarifario.generado}} ({{tarifario.sha}}) · build {{build.fecha}}
+    </footer>
+  </main>
+
+  <a class="resumen-movil" href="#totales" id="resumen-movil">
+    <span class="resumen-label">Primer pago</span>
+    <span class="resumen-valores num"><span data-resumen="ARS">$&nbsp;0,00</span><span data-resumen="USD">US$&nbsp;0,00</span></span>
+  </a>
+</body>
+</html>

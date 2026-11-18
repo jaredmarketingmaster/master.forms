@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Master de Forms · Centro de Mando MMG (uso interno)</title>
+  <meta name="description" content="Herramienta interna de Marketing Masters Group para generar en un clic el link del formulario de onboarding de cada prospecto o cliente.">
+  <link rel="canonical" href="{{pages.url}}forms.html">
+  <meta property="og:title" content="Master de Forms · Centro de Mando MMG">
+  <meta property="og:description" content="Herramienta interna de MMG. Sin datos de clientes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{pages.url}}forms.html">
+  <meta property="og:image" content="assets/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#2D3748">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{fonts.url}}">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script type="application/json" id="datos-forms">{{datos.forms}}</script>
+  <script src="assets/js/comun.js" defer></script>
+  <script src="assets/js/forms.js" defer></script>
+</head>
+<body class="wd">
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/img/mmg-isotipo.png" width="28" height="28" alt="" fetchpriority="high">
+      <span class="brand-name">Centro de Mando <b>MMG</b></span>
+    </a>
+    <nav class="tabs" aria-label="Pantallas">
+      <a class="tab" href="index.html"><span>Precotizadora</span></a>
+      <a class="tab" href="forms.html" aria-current="page"><span>Master de Forms</span></a>
+    </nav>
+  </header>
+
+  <main class="canvas" id="contenido">
+    <div class="title-row">
+      <h1>Master de Forms</h1>
+      <p class="sub">Un formulario por tipo: el link le dice qué módulos mostrar. Solo lleva el nombre comercial y los servicios.</p>
+    </div>
+
+    <div class="forms-grid" id="forms">
+      <p class="cargando">Cargando formularios…</p>
+    </div>
+
+    <footer class="pie">
+      Herramienta interna · no guarda datos · los links se arman en tu navegador · build {{build.fecha}}
+    </footer>
+  </main>
+</body>
+</html>

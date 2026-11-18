@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "regla": "Un formulario por tipo; el link le dice qué módulos mostrar. En la URL solo van el nombre comercial (n) y los servicios (s). Nunca email, teléfono ni otro dato personal.",
+    "pendiente": "Las url_base son de ejemplo hasta que MMG cierre el banco de preguntas y este módulo construya los formularios reales."
+  },
+  "etiquetas_servicios": {
+    "pauta": "Pauta",
+    "embudos": "Embudos",
+    "creativos": "Creativos",
+    "landing": "Landing",
+    "web": "Web institucional",
+    "webapp": "Web app"
+  },
+  "formularios": [
+    {
+      "id": "brief-crecimiento",
+      "nombre": "Brief de Crecimiento",
+      "descripcion": "Onboarding para clientes de gestión: pauta, embudos y contenido, más la web que necesiten.",
+      "url_base": "https://example.com/mmg/brief-de-crecimiento",
+      "servicios": ["pauta", "embudos", "creativos", "landing", "web", "webapp"],
+      "estado": "En construcción"
+    },
+    {
+      "id": "brief-proyecto-web",
+      "nombre": "Brief de Proyecto Web",
+      "descripcion": "Para proyectos de desarrollo: landing, sitio institucional o web app a medida.",
+      "url_base": "https://example.com/mmg/brief-de-proyecto-web",
+      "servicios": ["landing", "web", "webapp"],
+      "estado": "En construcción"
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "_meta": {
+    "generado": "2026-11-17T19:37:11",
+    "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
+    "fuente": "_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)",
+    "regla": "Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."
+  },
+  "constantes": {
+    "tc_ars_por_usd": 1550.0,
+    "redondeo_usd_multiplo": 5,
+    "descuento_extraordinario_pct": 35.7
+  },
+  "plataformas": [
+    "Meta Ads",
+    "Google Ads",
+    "TikTok Ads",
+    "LinkedIn Ads",
+    "X Ads"
+  ],
+  "servicios": [
+    {
+      "codigo": "PAUTA",
+      "servicio": "Gestión de Pauta Digital · plataforma base",
+      "modalidad": "mensual",
+      "ars": 200000.0,
+      "usd": 130.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Sainato · tracking, reporting y setup incluidos",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "PAUTA_EXTRA",
+      "servicio": "Gestión de Pauta Digital · plataforma adicional",
+      "modalidad": "mensual",
+      "ars": 100000.0,
+      "usd": 65.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "+50 % de la base · cantidad = plataformas − 1 (--plataformas)",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "EMBUDOS",
+      "servicio": "Gestión de Embudos de Venta",
+      "modalidad": "mensual",
+      "ars": 90000.0,
+      "usd": 60.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Sainato · siempre con HUB incluido",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "HUB",
+      "servicio": "Marketing Master HUB",
+      "modalidad": "mensual",
+      "ars": 100000.0,
+      "usd": 65.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "CREATIVOS",
+      "servicio": "Creación y Mejora de Contenido (creativos para anuncios)",
+      "modalidad": "mensual",
+      "ars": 50000.0,
+      "usd": 35.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Sainato",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "LANDING",
+      "servicio": "Creación de landing page",
+      "modalidad": "unico",
+      "ars": 100000.0,
+      "usd": 65.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Sainato · bonificada si van PAUTA + EMBUDOS",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "WEB_INST",
+      "servicio": "Creación de website institucional",
+      "modalidad": "unico",
+      "ars": 150000.0,
+      "usd": 100.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Sainato · bonificable con --bonificar WEB_INST",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "WEB_APP",
+      "servicio": "Web app a medida",
+      "modalidad": "hora",
+      "ars": 35000.0,
+      "usd": 25.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Horas estimadas × tarifa por hora (--horas-codigo WEB_APP=N)",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "HORA",
+      "servicio": "Servicio Personalizado por Hora",
+      "modalidad": "hora",
+      "ars": 35000.0,
+      "usd": 25.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Precio fijo en las dos monedas",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "CAPACITACION",
+      "servicio": "Capacitación a medida para equipos",
+      "modalidad": "unico",
+      "ars": null,
+      "usd": null,
+      "caso_a_caso": true,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Exige --precio",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "ICT_IPHONE",
+      "servicio": "Sistema I.C.T. para tiendas de iPhone (producto de nicho, débito automático)",
+      "modalidad": "mensual",
+      "ars": null,
+      "usd": 210.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "ars_por_conversion": true,
+      "estado": "CONFIRMADO",
+      "nota": "Valor percibido = lista (sin benchmark propio todavía). Libro Consultor Blue Hacker cap. 23 (oferta I.C.T.): precio máximo, sin descuentos; no aplica tramo de pauta ni bundle; pauta USD 1.000/mes aparte",
+      "admite_descuento_extraordinario": false
+    },
+    {
+      "codigo": "ICT_IPHONE_CRM",
+      "servicio": "Sistema I.C.T. para tiendas de iPhone con CRM GoHighLevel propio",
+      "modalidad": "mensual",
+      "ars": null,
+      "usd": 150.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "ars_por_conversion": true,
+      "estado": "CONFIRMADO",
+      "nota": "Ídem; variante si la tienda ya tiene su CRM",
+      "admite_descuento_extraordinario": false
+    }
+  ],
+  "reglas": [
+    {
+      "id": "P1",
+      "texto": "Cada línea tiene su precio en ARS y en USD (ya calculados en este archivo; el USD sale de ARS ÷ 1.550 hacia arriba al múltiplo de 5). Los totales en USD son la suma de las líneas en USD, nunca el total en ARS convertido."
+    },
+    {
+      "id": "ICT_ARS",
+      "texto": "ICT_IPHONE*: solo tienen precio en USD. En ARS se convierte USD × tc_ars_por_usd, sin redondeo."
+    },
+    {
+      "id": "PLATAFORMAS",
+      "texto": "Con PAUTA, cada plataforma elegida después de la primera suma 1 unidad de PAUTA_EXTRA (cantidad = plataformas − 1). PAUTA_EXTRA no se elige suelto."
+    },
+    {
+      "id": "HUB_EN_EMBUDOS",
+      "texto": "EMBUDOS agrega HUB automáticamente como línea bonificada ('Incluido en la Gestión de Embudos de Venta'): precio de lista visible y tachado, neto 0."
+    },
+    {
+      "id": "LANDING_BONIF",
+      "texto": "Si están PAUTA + EMBUDOS + LANDING, LANDING va bonificada ('Bonificada al contratar Pauta + Embudos'): lista tachada, neto 0."
+    },
+    {
+      "id": "BONIFICAR",
+      "texto": "WEB_INST tiene un interruptor 'Bonificar': lista tachada, neto 0."
+    },
+    {
+      "id": "HORAS",
+      "texto": "WEB_APP y HORA se multiplican por la cantidad de horas."
+    },
+    {
+      "id": "CASO_A_CASO",
+      "texto": "CAPACITACION se cotiza caso a caso: precio ingresado a mano, uno para ARS y otro para USD (cada uno se usa solo en su moneda)."
+    },
+    {
+      "id": "P2",
+      "texto": "Descuento extraordinario: 35,7 % sobre cada línea no bonificada que lo admita (no ICT_*). Advertencia obligatoria: solo clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared."
+    },
+    {
+      "id": "TOTALES",
+      "texto": "fee_mensual = suma de netos 'mensual' · setup_y_unicos = suma de netos 'unico' y 'hora' · primer_pago_mes_1 = setup_y_unicos + fee_mensual. Cada neto de línea se redondea a 6 decimales; los totales se redondean al final a 2 decimales con medio centavo HACIA ARRIBA (228,265 → 228,27). En JS no usar toFixed ni Math.round(x*100) directo: usar Number(Math.round(Number(x + 'e2')) + 'e-2')."
+    }
+  ],
+  "advertencias_fijas": [
+    "USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS"
+  ]
+}

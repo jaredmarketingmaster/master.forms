@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Precotizadora · Centro de Mando MMG (uso interno)</title>
+  <meta name="description" content="Herramienta interna de Marketing Masters Group para calcular en segundos el fee mensual, los pagos únicos y el primer pago de una propuesta.">
+  <link rel="canonical" href="https://jaredmarketingmaster.github.io/master.forms/">
+  <meta property="og:title" content="Precotizadora · Centro de Mando MMG">
+  <meta property="og:description" content="Herramienta interna de MMG. Sin datos de clientes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jaredmarketingmaster.github.io/master.forms/">
+  <meta property="og:image" content="assets/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#2D3748">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;family=Barlow+Semi+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script type="application/json" id="datos-tarifario">{"_meta":{"generado":"2026-11-17T19:37:11","generador":"MMG_Base_Operaciones/_engine/export_precotizadora.py","fuente":"_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)","regla":"Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."},"constantes":{"tc_ars_por_usd":1550.0,"redondeo_usd_multiplo":5,"descuento_extraordinario_pct":35.7},"plataformas":["Meta Ads","Google Ads","TikTok Ads","LinkedIn Ads","X Ads"],"servicios":[{"codigo":"PAUTA","servicio":"Gestión de Pauta Digital · plataforma base","modalidad":"mensual","ars":200000.0,"usd":130.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · tracking, reporting y setup incluidos","admite_descuento_extraordinario":true},{"codigo":"PAUTA_EXTRA","servicio":"Gestión de Pauta Digital · plataforma adicional","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"+50 % de la base · cantidad = plataformas − 1 (--plataformas)","admite_descuento_extraordinario":true},{"codigo":"EMBUDOS","servicio":"Gestión de Embudos de Venta","modalidad":"mensual","ars":90000.0,"usd":60.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · siempre con HUB incluido","admite_descuento_extraordinario":true},{"codigo":"HUB","servicio":"Marketing Master HUB","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS","admite_descuento_extraordinario":true},{"codigo":"CREATIVOS","servicio":"Creación y Mejora de Contenido (creativos para anuncios)","modalidad":"mensual","ars":50000.0,"usd":35.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato","admite_descuento_extraordinario":true},{"codigo":"LANDING","servicio":"Creación de landing page","modalidad":"unico","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · bonificada si van PAUTA + EMBUDOS","admite_descuento_extraordinario":true},{"codigo":"WEB_INST","servicio":"Creación de website institucional","modalidad":"unico","ars":150000.0,"usd":100.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · bonificable con --bonificar WEB_INST","admite_descuento_extraordinario":true},{"codigo":"WEB_APP","servicio":"Web app a medida","modalidad":"hora","ars":35000.0,"usd":25.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Horas estimadas × tarifa por hora (--horas-codigo WEB_APP=N)","admite_descuento_extraordinario":true},{"codigo":"HORA","servicio":"Servicio Personalizado por Hora","modalidad":"hora","ars":35000.0,"usd":25.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Precio fijo en las dos monedas","admite_descuento_extraordinario":true},{"codigo":"CAPACITACION","servicio":"Capacitación a medida para equipos","modalidad":"unico","ars":null,"usd":null,"caso_a_caso":true,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Exige --precio","admite_descuento_extraordinario":true},{"codigo":"ICT_IPHONE","servicio":"Sistema I.C.T. para tiendas de iPhone (producto de nicho, débito automático)","modalidad":"mensual","ars":null,"usd":210.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"ars_por_conversion":true,"estado":"CONFIRMADO","nota":"Valor percibido = lista (sin benchmark propio todavía). Libro Consultor Blue Hacker cap. 23 (oferta I.C.T.): precio máximo, sin descuentos; no aplica tramo de pauta ni bundle; pauta USD 1.000/mes aparte","admite_descuento_extraordinario":false},{"codigo":"ICT_IPHONE_CRM","servicio":"Sistema I.C.T. para tiendas de iPhone con CRM GoHighLevel propio","modalidad":"mensual","ars":null,"usd":150.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"ars_por_conversion":true,"estado":"CONFIRMADO","nota":"Ídem; variante si la tienda ya tiene su CRM","admite_descuento_extraordinario":false}],"reglas":[{"id":"P1","texto":"Cada línea tiene su precio en ARS y en USD (ya calculados en este archivo; el USD sale de ARS ÷ 1.550 hacia arriba al múltiplo de 5). Los totales en USD son la suma de las líneas en USD, nunca el total en ARS convertido."},{"id":"ICT_ARS","texto":"ICT_IPHONE*: solo tienen precio en USD. En ARS se convierte USD × tc_ars_por_usd, sin redondeo."},{"id":"PLATAFORMAS","texto":"Con PAUTA, cada plataforma elegida después de la primera suma 1 unidad de PAUTA_EXTRA (cantidad = plataformas − 1). PAUTA_EXTRA no se elige suelto."},{"id":"HUB_EN_EMBUDOS","texto":"EMBUDOS agrega HUB automáticamente como línea bonificada ('Incluido en la Gestión de Embudos de Venta'): precio de lista visible y tachado, neto 0."},{"id":"LANDING_BONIF","texto":"Si están PAUTA + EMBUDOS + LANDING, LANDING va bonificada ('Bonificada al contratar Pauta + Embudos'): lista tachada, neto 0."},{"id":"BONIFICAR","texto":"WEB_INST tiene un interruptor 'Bonificar': lista tachada, neto 0."},{"id":"HORAS","texto":"WEB_APP y HORA se multiplican por la cantidad de horas."},{"id":"CASO_A_CASO","texto":"CAPACITACION se cotiza caso a caso: precio ingresado a mano, uno para ARS y otro para USD (cada uno se usa solo en su moneda)."},{"id":"P2","texto":"Descuento extraordinario: 35,7 % sobre cada línea no bonificada que lo admita (no ICT_*). Advertencia obligatoria: solo clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared."},{"id":"TOTALES","texto":"fee_mensual = suma de netos 'mensual' · setup_y_unicos = suma de netos 'unico' y 'hora' · primer_pago_mes_1 = setup_y_unicos + fee_mensual. Cada neto de línea se redondea a 6 decimales; los totales se redondean al final a 2 decimales con medio centavo HACIA ARRIBA (228,265 → 228,27). En JS no usar toFixed ni Math.round(x*100) directo: usar Number(Math.round(Number(x + 'e2')) + 'e-2')."}],"advertencias_fijas":["USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS"]}</script>
+  <script src="assets/js/comun.js" defer></script>
+  <script src="assets/js/cotizador.js" defer></script>
+  <script src="assets/js/precotizadora.js" defer></script>
+</head>
+<body class="wd">
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/img/mmg-isotipo.png" width="28" height="28" alt="" fetchpriority="high">
+      <span class="brand-name">Centro de Mando <b>MMG</b></span>
+    </a>
+    <nav class="tabs" aria-label="Pantallas">
+      <a class="tab" href="index.html" aria-current="page"><span>Precotizadora</span></a>
+      <a class="tab" href="forms.html"><span>Master de Forms</span></a>
+    </nav>
+  </header>
+
+  <main class="canvas" id="contenido">
+    <div class="title-row">
+      <h1>Precotizadora</h1>
+      <p class="sub" id="sub-tarifario">Tarifario v1 del 2026-11-17 19:37 · cada línea con su precio en ARS y en USD</p>
+    </div>
+
+    <div class="layout">
+      <section class="col-config" aria-labelledby="h-servicios">
+        <div class="panel">
+          <div class="panel-head">
+            <h2 id="h-servicios">Servicios</h2>
+            <button type="button" class="btn-text" id="btn-limpiar">Limpiar</button>
+          </div>
+          <div id="servicios" class="servicios">
+            <p class="cargando">Cargando tarifario…</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="switch-row">
+            <div class="switch-text">
+              <label for="descuento" class="switch-title" id="descuento-titulo">Descuento extraordinario</label>
+              <p class="switch-desc">Se aplica a cada línea no bonificada que lo admita. No aplica a I.C.T.</p>
+            </div>
+            <input type="checkbox" role="switch" id="descuento" class="switch">
+          </div>
+          <p class="aviso aviso-warning" id="descuento-aviso" hidden>Solo para clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared</p>
+        </div>
+      </section>
+
+      <section class="col-resultado" aria-labelledby="h-resultado">
+        <h2 id="h-resultado" class="sr-only">Resultado</h2>
+        <div class="totales" id="totales" aria-live="polite">
+          <table>
+            <caption class="sr-only">Totales en pesos y en dólares</caption>
+            <thead>
+              <tr><th scope="col"><span class="sr-only">Concepto</span></th><th scope="col" class="num">ARS</th><th scope="col" class="num">USD</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Fee mensual</th><td class="num" data-total="fee_mensual" data-moneda="ARS">—</td><td class="num" data-total="fee_mensual" data-moneda="USD">—</td></tr>
+              <tr><th scope="row">Pagos únicos</th><td class="num" data-total="setup_y_unicos" data-moneda="ARS">—</td><td class="num" data-total="setup_y_unicos" data-moneda="USD">—</td></tr>
+              <tr class="primer-pago"><th scope="row">Primer pago <span>(mes 1)</span></th><td class="num" data-total="primer_pago_mes_1" data-moneda="ARS">—</td><td class="num" data-total="primer_pago_mes_1" data-moneda="USD">—</td></tr>
+            </tbody>
+          </table>
+          <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Líneas</h2>
+            <span class="meta" id="lineas-cuenta">0 líneas</span>
+          </div>
+          <div class="tabla-wrap">
+            <table class="lineas">
+              <thead>
+                <tr><th scope="col">Servicio</th><th scope="col" class="num">Cant.</th><th scope="col" class="num">Lista</th><th scope="col" class="num">Final</th></tr>
+              </thead>
+              <tbody id="lineas"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Advertencias</h2></div>
+          <ul class="avisos" id="avisos"></ul>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Comando para Claude</h2>
+            <div class="segmented" role="group" aria-label="Moneda del comando">
+              <button type="button" data-moneda-cmd="ARS" aria-pressed="true">ARS</button>
+              <button type="button" data-moneda-cmd="USD" aria-pressed="false">USD</button>
+            </div>
+          </div>
+          <pre class="comando"><code id="comando">python _engine/quote_calculator.py --cliente &lt;slug&gt; --servicios &lt;servicios&gt; --moneda ARS</code></pre>
+          <div class="acciones">
+            <button type="button" class="btn-primary" id="btn-copiar-comando">Copiar comando para Claude</button>
+            <span class="estado-copia" id="estado-comando" role="status" aria-live="polite"></span>
+          </div>
+          <p class="meta">Se corre en MMG_Base_Operaciones. <code>&lt;slug&gt;</code> queda literal: la app no conoce al cliente.</p>
+        </div>
+      </section>
+    </div>
+
+    <footer class="pie">
+      Herramienta interna · no guarda datos · tarifario 2026-11-17 19:37 (182d79db) · build 2026-11-17 19:59
+    </footer>
+  </main>
+
+  <a class="resumen-movil" href="#totales" id="resumen-movil">
+    <span class="resumen-label">Primer pago</span>
+    <span class="resumen-valores num"><span data-resumen="ARS">$&nbsp;0,00</span><span data-resumen="USD">US$&nbsp;0,00</span></span>
+  </a>
+</body>
+</html>

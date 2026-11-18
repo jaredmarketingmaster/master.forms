@@ -1,0 +1,1493 @@
+{
+  "_meta": {
+    "generado": "2026-11-17T19:37:11",
+    "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
+    "regla": "Totales calculados por quote_calculator.py (--dry-run). Test: los 3 totales deben coincidir con diferencia < 0,005 (redondeo medio centavo hacia arriba); el neto de cada línea, < 0,011 (el cotizador redondea las líneas con round() de Python y puede diferir 1 centavo en un ,5)."
+  },
+  "casos": [
+    {
+      "id": "pauta_1",
+      "servicios": [
+        "PAUTA"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 200000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 200000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 130.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 130.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_2",
+      "servicios": [
+        "PAUTA"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 300000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 300000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 195.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 195.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_5",
+      "servicios": [
+        "PAUTA"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads",
+        "TikTok Ads",
+        "LinkedIn Ads",
+        "X Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 600000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 600000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 4.0,
+              "lista": 400000.0,
+              "neto": 400000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 390.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 390.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 4.0,
+              "lista": 260.0,
+              "neto": 260.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_embudos",
+      "servicios": [
+        "PAUTA",
+        "EMBUDOS"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 290000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 290000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 190.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 190.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_embudos_landing",
+      "servicios": [
+        "PAUTA",
+        "EMBUDOS",
+        "LANDING"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 290000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 290000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 190.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 190.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "embudos_solo",
+      "servicios": [
+        "EMBUDOS"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 90000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 90000.0,
+          "lineas": [
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 60.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 60.0,
+          "lineas": [
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "hub_solo",
+      "servicios": [
+        "HUB"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 100000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 100000.0,
+          "lineas": [
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 65.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 65.0,
+          "lineas": [
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "creativos_solo",
+      "servicios": [
+        "CREATIVOS"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 50000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 50000.0,
+          "lineas": [
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 50000.0,
+              "neto": 50000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 35.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 35.0,
+          "lineas": [
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 35.0,
+              "neto": 35.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "landing_sola",
+      "servicios": [
+        "LANDING"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 0.0,
+          "setup_y_unicos": 100000.0,
+          "primer_pago_mes_1": 100000.0,
+          "lineas": [
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 0,
+          "setup_y_unicos": 65.0,
+          "primer_pago_mes_1": 65.0,
+          "lineas": [
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "landing_con_pauta_sin_embudos",
+      "servicios": [
+        "PAUTA",
+        "LANDING"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 200000.0,
+          "setup_y_unicos": 100000.0,
+          "primer_pago_mes_1": 300000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 130.0,
+          "setup_y_unicos": 65.0,
+          "primer_pago_mes_1": 195.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "web_inst",
+      "servicios": [
+        "WEB_INST"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 0.0,
+          "setup_y_unicos": 150000.0,
+          "primer_pago_mes_1": 150000.0,
+          "lineas": [
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 150000.0,
+              "neto": 150000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 0,
+          "setup_y_unicos": 100.0,
+          "primer_pago_mes_1": 100.0,
+          "lineas": [
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 100.0,
+              "neto": 100.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "web_inst_bonificada",
+      "servicios": [
+        "PAUTA",
+        "WEB_INST"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "bonificar": [
+        "WEB_INST"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 200000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 200000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 150000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 130.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 130.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 100.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "web_app_12h",
+      "servicios": [
+        "WEB_APP"
+      ],
+      "horas": {
+        "WEB_APP": 12
+      },
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 0.0,
+          "setup_y_unicos": 420000.0,
+          "primer_pago_mes_1": 420000.0,
+          "lineas": [
+            {
+              "codigo": "WEB_APP",
+              "cantidad": 12.0,
+              "lista": 420000.0,
+              "neto": 420000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 0,
+          "setup_y_unicos": 300.0,
+          "primer_pago_mes_1": 300.0,
+          "lineas": [
+            {
+              "codigo": "WEB_APP",
+              "cantidad": 12.0,
+              "lista": 300.0,
+              "neto": 300.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "hora_3h",
+      "servicios": [
+        "HORA"
+      ],
+      "horas": {
+        "HORA": 3
+      },
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 0.0,
+          "setup_y_unicos": 105000.0,
+          "primer_pago_mes_1": 105000.0,
+          "lineas": [
+            {
+              "codigo": "HORA",
+              "cantidad": 3.0,
+              "lista": 105000.0,
+              "neto": 105000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 0,
+          "setup_y_unicos": 75.0,
+          "primer_pago_mes_1": 75.0,
+          "lineas": [
+            {
+              "codigo": "HORA",
+              "cantidad": 3.0,
+              "lista": 75.0,
+              "neto": 75.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "capacitacion",
+      "servicios": [
+        "CAPACITACION"
+      ],
+      "precio_caso_a_caso": {
+        "CAPACITACION": {
+          "ARS": 300000,
+          "USD": 200
+        }
+      },
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 0.0,
+          "setup_y_unicos": 300000.0,
+          "primer_pago_mes_1": 300000.0,
+          "lineas": [
+            {
+              "codigo": "CAPACITACION",
+              "cantidad": 1.0,
+              "lista": 300000.0,
+              "neto": 300000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 0,
+          "setup_y_unicos": 200.0,
+          "primer_pago_mes_1": 200.0,
+          "lineas": [
+            {
+              "codigo": "CAPACITACION",
+              "cantidad": 1.0,
+              "lista": 200.0,
+              "neto": 200.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta2_creativos_desc",
+      "servicios": [
+        "PAUTA",
+        "CREATIVOS"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads"
+      ],
+      "descuento_extraordinario": true,
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 225050.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 225050.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 128600.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 64300.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 50000.0,
+              "neto": 32150.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 147.89,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 147.89,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 83.59,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 41.8,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 35.0,
+              "neto": 22.5,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "completo_desc",
+      "servicios": [
+        "PAUTA",
+        "EMBUDOS",
+        "LANDING",
+        "CREATIVOS",
+        "WEB_INST"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads",
+        "TikTok Ads"
+      ],
+      "bonificar": [
+        "WEB_INST"
+      ],
+      "descuento_extraordinario": true,
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 347220.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 347220.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 128600.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 2.0,
+              "lista": 200000.0,
+              "neto": 128600.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 57870.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 50000.0,
+              "neto": 32150.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 150000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 228.27,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 228.27,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 83.59,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 2.0,
+              "lista": 130.0,
+              "neto": 83.59,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 38.58,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 35.0,
+              "neto": 22.5,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 100.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "hub_desc",
+      "servicios": [
+        "HUB"
+      ],
+      "descuento_extraordinario": true,
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 64300.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 64300.0,
+          "lineas": [
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 64300.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 41.8,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 41.8,
+          "lineas": [
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 41.8,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "tipo_sainato",
+      "servicios": [
+        "PAUTA",
+        "EMBUDOS",
+        "CREATIVOS",
+        "LANDING",
+        "WEB_INST"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads"
+      ],
+      "bonificar": [
+        "WEB_INST"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 440000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 440000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 50000.0,
+              "neto": 50000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 150000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 290.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 290.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 35.0,
+              "neto": 35.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "WEB_INST",
+              "cantidad": 1.0,
+              "lista": 100.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_hora_webapp_desc",
+      "servicios": [
+        "PAUTA",
+        "HORA",
+        "WEB_APP"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "horas": {
+        "HORA": 2,
+        "WEB_APP": 10
+      },
+      "descuento_extraordinario": true,
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 128600.0,
+          "setup_y_unicos": 270060.0,
+          "primer_pago_mes_1": 398660.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 128600.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "HORA",
+              "cantidad": 2.0,
+              "lista": 70000.0,
+              "neto": 45010.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "WEB_APP",
+              "cantidad": 10.0,
+              "lista": 350000.0,
+              "neto": 225050.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 83.59,
+          "setup_y_unicos": 192.9,
+          "primer_pago_mes_1": 276.49,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 83.59,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "HORA",
+              "cantidad": 2.0,
+              "lista": 50.0,
+              "neto": 32.15,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "WEB_APP",
+              "cantidad": 10.0,
+              "lista": 250.0,
+              "neto": 160.75,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ict_iphone",
+      "servicios": [
+        "ICT_IPHONE"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 325500.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 325500.0,
+          "lineas": [
+            {
+              "codigo": "ICT_IPHONE",
+              "cantidad": 1.0,
+              "lista": 325500.0,
+              "neto": 325500.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin --tipo-cambio: se usó la referencia del dossier ARS 1,550 por USD (desactualizada). Fijá el tipo de cambio del día.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 210.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 210.0,
+          "lineas": [
+            {
+              "codigo": "ICT_IPHONE",
+              "cantidad": 1.0,
+              "lista": 210.0,
+              "neto": 210.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ict_iphone_crm_desc",
+      "servicios": [
+        "ICT_IPHONE_CRM"
+      ],
+      "descuento_extraordinario": true,
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 232500.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 232500.0,
+          "lineas": [
+            {
+              "codigo": "ICT_IPHONE_CRM",
+              "cantidad": 1.0,
+              "lista": 232500.0,
+              "neto": 232500.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin --tipo-cambio: se usó la referencia del dossier ARS 1,550 por USD (desactualizada). Fijá el tipo de cambio del día.",
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 150.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 150.0,
+          "lineas": [
+            {
+              "codigo": "ICT_IPHONE_CRM",
+              "cantidad": 1.0,
+              "lista": 150.0,
+              "neto": 150.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# Reportes locales (capturas y rutas de la PC): no van al repo público
+qa_reports/
+.qa/
+.taste-skill/
+# Secretos y entorno
+.env
+.env.*
+*.pem
+*.key
+# Dependencias y cachés
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
+.impeccable/
