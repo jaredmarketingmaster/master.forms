@@ -6,7 +6,7 @@
 
   var VEL_MIN = 60, VEL_MAX = 240, VEL_PASO = 5;
   var TAM_MIN = 24, TAM_MAX = 96, TAM_PASO = 4;
-  var GUIA = 0.33;            // la línea de lectura va al tercio superior, cerca de la cámara
+  var GUIA = 0.08;            // se lee pegado al margen superior, cerca de la cámara
   var OCULTAR_MS = 2500;      // la barra se esconde sola mientras se lee
   var MAX_ARCHIVO = 1024 * 1024;
 
@@ -82,7 +82,8 @@
     var s = ui.escena.style;
     s.setProperty('--tp-tam', tam() + 'px');
     s.setProperty('--tp-ancho', ui.ancho.value + '%');
-    s.setProperty('--tp-guia', (GUIA * 100) + '%');
+    // Las flechas apuntan al medio del renglón que se está leyendo (interlineado 1,5).
+    s.setProperty('--tp-guia', 'calc(' + (GUIA * 100) + '% + ' + (tam() * 0.75) + 'px)');
     ui.escena.classList.toggle('tp-con-guia', ui.guia.checked);
     ui.escena.classList.toggle('tp-espejo', ui.espejo.checked);
   }
@@ -90,8 +91,9 @@
   /** Recalcula la velocidad en px/s para leer N palabras por minuto con la letra y el ancho actuales. */
   function medir(conservarProgreso) {
     var ratio = st.max ? st.offset / st.max : 0;
-    st.max = ui.columna.offsetHeight;
-    st.pxPorSeg = st.palabras ? st.max * vel() / (st.palabras * 60) : 0;
+    // El final es cuando la última línea terminó de esconderse por arriba de la pantalla.
+    st.max = ui.columna.offsetHeight + ui.ventana.clientHeight * GUIA;
+    st.pxPorSeg = st.palabras ? ui.columna.offsetHeight * vel() / (st.palabras * 60) : 0;
     if (conservarProgreso) st.offset = ratio * st.max;
     pintar();
   }

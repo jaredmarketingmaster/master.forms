@@ -326,16 +326,15 @@ body.tp-abierto { overflow: hidden; }
 .tp-nota { display: inline-block; margin: 0 0.15em; font-size: 0.55em; font-weight: 700; font-style: italic; color: var(--accent-hover); vertical-align: middle; }
 .tp-nota::before { content: "["; } .tp-nota::after { content: "]"; }
 .tp-guia {
-  position: absolute; left: 0; right: 0; top: var(--tp-guia, 33%); height: 0;
+  position: absolute; left: 0; right: 0; top: var(--tp-guia, 8%); height: 0;
   pointer-events: none; display: none;
 }
 .tp-con-guia .tp-guia { display: block; }
 .tp-guia::before, .tp-guia::after {
-  content: ""; position: absolute; top: -10px;
-  border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+  content: ""; position: absolute; top: -10px; width: 16px; height: 20px; background: var(--accent);
 }
-.tp-guia::before { left: 0; border-left: 16px solid var(--accent); }
-.tp-guia::after { right: 0; border-right: 16px solid var(--accent); }
+.tp-guia::before { left: 0; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.tp-guia::after { right: 0; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
 .tp-progreso { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--rule); pointer-events: none; }
 .tp-progreso-barra { height: 100%; background: var(--accent); transform-origin: left center; transform: scaleX(0); }
 .tp-cuenta {
@@ -372,9 +371,7 @@ body.tp-abierto { overflow: hidden; }
 .tp-escena.tp-quieto .tp-ventana { cursor: none; }
 .tp-espejo .tp-nota { direction: ltr; }
 @media (max-width: 767px) {
-  .tp-guia::before, .tp-guia::after { top: -7px; border-top-width: 7px; border-bottom-width: 7px; }
-  .tp-guia::before { border-left-width: 9px; }
-  .tp-guia::after { border-right-width: 9px; }
+  .tp-guia::before, .tp-guia::after { top: -7px; width: 9px; height: 14px; }
 }
 @media (max-width: 420px) {
   .tp-barra-vel, .tp-barra-tiempo { min-width: 52px; font-size: 13px; }
