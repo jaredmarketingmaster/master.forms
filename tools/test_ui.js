@@ -201,8 +201,12 @@ async function capturar(ctx, base, vista, dir) {
 }
 
 (async () => {
-  const srv = await servidor();
-  const base = `http://127.0.0.1:${srv.address().port}${PREFIJO}`;
+  // --base <url>: prueba el sitio publicado (p. ej. GitHub Pages) en lugar de la copia local de docs/.
+  const iBase = process.argv.indexOf('--base');
+  const baseExterna = iBase !== -1 ? process.argv[iBase + 1].replace(/\/?$/, '/') : null;
+  const srv = baseExterna ? null : await servidor();
+  const base = baseExterna || `http://127.0.0.1:${srv.address().port}${PREFIJO}`;
+  console.log(`Probando ${base}`);
   const browser = await chromium.launch();
   const vistas = { '390x844': { width: 390, height: 844, mobile: true }, '1440x900': { width: 1440, height: 900, mobile: false } };
   const resumen = {};
@@ -219,7 +223,7 @@ async function capturar(ctx, base, vista, dir) {
     await ctx.close();
   }
   await browser.close();
-  srv.close();
+  if (srv) srv.close();
   if (fallas.length) {
     console.log(`\n${fallas.length} falla(s):`);
     fallas.forEach((f) => console.log(`  - [${f.vista} · ${f.caso}] ${f.detalle}`));
