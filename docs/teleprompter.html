@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Teleprompter · Centro de Mando MMG (uso interno)</title>
+  <meta name="description" content="Herramienta interna de Marketing Masters Group: teleprompter a pantalla completa para grabar videos leyendo un guion.">
+  <link rel="canonical" href="https://jaredmarketingmaster.github.io/master.forms/teleprompter.html">
+  <meta property="og:title" content="Teleprompter · Centro de Mando MMG">
+  <meta property="og:description" content="Herramienta interna de MMG. El guion no sale de tu navegador.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jaredmarketingmaster.github.io/master.forms/teleprompter.html">
+  <meta property="og:image" content="assets/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#2D3748">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;family=Barlow+Semi+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script src="assets/js/comun.js" defer></script>
+  <script src="assets/js/teleprompter.js" defer></script>
+</head>
+<body class="wd">
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/img/mmg-isotipo.png" width="28" height="28" alt="" fetchpriority="high">
+      <span class="brand-name">Centro de Mando <b>MMG</b></span>
+    </a>
+    <nav class="tabs" aria-label="Pantallas">
+      <a class="tab" href="index.html"><span>Precotizadora</span></a>
+      <a class="tab" href="forms.html"><span>Master de Forms</span></a>
+      <a class="tab" href="teleprompter.html" aria-current="page"><span>Teleprompter</span></a>
+    </nav>
+  </header>
+
+  <main class="canvas" id="contenido">
+    <div class="title-row">
+      <h1>Teleprompter</h1>
+      <p class="sub">Pega el guion, elige la velocidad y dale a Reproducir. El texto no sale de tu navegador.</p>
+    </div>
+
+    <div class="layout">
+      <section class="col-config" aria-labelledby="h-guion">
+        <div class="panel tp-guion">
+          <div class="panel-head">
+            <h2 id="h-guion">Guion</h2>
+            <div class="tp-acciones-guion">
+              <label class="btn-text tp-archivo" for="tp-archivo">Abrir .txt</label>
+              <input type="file" id="tp-archivo" accept=".txt,.md,text/plain" class="sr-only">
+              <button type="button" class="btn-text" id="tp-limpiar">Limpiar</button>
+            </div>
+          </div>
+          <label for="tp-texto" class="sr-only">Texto del guion</label>
+          <textarea id="tp-texto" class="tp-texto" rows="14" spellcheck="true" autocomplete="off"
+            placeholder="Pega acá el texto que vas a leer.&#10;&#10;Deja una línea en blanco entre párrafos. Lo que pongas [entre corchetes] aparece como indicación y no se cuenta para el tiempo."></textarea>
+          <p class="meta" id="tp-resumen" aria-live="polite">0 palabras</p>
+        </div>
+      </section>
+
+      <section class="col-resultado" aria-labelledby="h-ajustes">
+        <div class="panel">
+          <div class="panel-head"><h2 id="h-ajustes">Ajustes</h2></div>
+
+          <div class="tp-ajustes">
+            <div class="campo">
+              <div class="tp-rango-head">
+                <label for="tp-velocidad">Velocidad</label>
+                <output for="tp-velocidad" id="tp-velocidad-valor" class="tp-valor">140 palabras/min</output>
+              </div>
+              <input type="range" id="tp-velocidad" class="tp-rango" min="60" max="240" step="5" value="140">
+              <p class="ayuda">Lenta 100 · conversación 140 · rápida 180. Se ajusta en vivo con ↑ ↓.</p>
+            </div>
+
+            <div class="campo">
+              <div class="tp-rango-head">
+                <label for="tp-tamano">Tamaño de letra</label>
+                <output for="tp-tamano" id="tp-tamano-valor" class="tp-valor">48 px</output>
+              </div>
+              <input type="range" id="tp-tamano" class="tp-rango" min="24" max="96" step="2" value="48">
+            </div>
+
+            <div class="campo">
+              <div class="tp-rango-head">
+                <label for="tp-ancho">Ancho de la columna</label>
+                <output for="tp-ancho" id="tp-ancho-valor" class="tp-valor">40 %</output>
+              </div>
+              <input type="range" id="tp-ancho" class="tp-rango" min="30" max="95" step="5" value="40">
+              <p class="ayuda" id="tp-ancho-ayuda">Porcentaje del ancho de la pantalla.</p>
+            </div>
+
+            <div class="tp-switches">
+              <label class="switch-inline"><input type="checkbox" role="switch" class="switch" id="tp-cuenta" checked> Cuenta regresiva de 3 s</label>
+              <label class="switch-inline"><input type="checkbox" role="switch" class="switch" id="tp-guia" checked> Línea guía de lectura</label>
+              <label class="switch-inline"><input type="checkbox" role="switch" class="switch" id="tp-espejo"> Espejo (para vidrio de teleprompter)</label>
+            </div>
+          </div>
+
+          <div class="acciones">
+            <button type="button" class="btn-primary" id="tp-reproducir" disabled>Reproducir</button>
+            <span class="meta tp-duracion" id="tp-duracion"></span>
+          </div>
+          <p class="motivo-deshabilitado" id="tp-motivo">Pega un guion para reproducir.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Atajos durante la lectura</h2></div>
+          <dl class="tp-atajos">
+            <div><dt>Espacio o tocar la pantalla</dt><dd>Pausa y sigue</dd></div>
+            <div class="tp-atajos-teclado"><dt>↑ ↓</dt><dd>Más rápido / más lento</dd></div>
+            <div class="tp-atajos-teclado"><dt>← →</dt><dd>Retrocede / avanza unas líneas</dd></div>
+            <div class="tp-atajos-teclado"><dt>+ −</dt><dd>Letra más grande / más chica</dd></div>
+            <div><dt>Rueda o arrastrar</dt><dd>Mover el texto a mano</dd></div>
+            <div class="tp-atajos-teclado"><dt>Inicio</dt><dd>Volver al principio</dd></div>
+            <div class="tp-atajos-teclado"><dt>Esc</dt><dd>Salir</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
+
+    <footer class="pie">
+      Herramienta interna · no guarda datos: si recargas la página, el guion se pierde · build 2026-11-18 19:40
+    </footer>
+  </main>
+
+  <div class="tp-escena" id="tp-escena" tabindex="-1" role="dialog" aria-modal="true" aria-label="Lectura del guion" data-estado="cerrado" hidden>
+    <div class="tp-ventana" id="tp-ventana">
+      <div class="tp-columna" id="tp-columna" aria-live="off"></div>
+    </div>
+    <div class="tp-guia" id="tp-guia-linea" aria-hidden="true"></div>
+    <div class="tp-cuenta" id="tp-cuenta-num" aria-live="assertive" hidden></div>
+    <div class="tp-progreso" aria-hidden="true"><div class="tp-progreso-barra" id="tp-progreso"></div></div>
+    <div class="tp-barra" id="tp-barra" role="toolbar" aria-label="Controles del teleprompter">
+      <button type="button" class="tp-btn" id="tp-b-inicio" aria-label="Volver al principio"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 5v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M19 5.5v13L9 12z" fill="currentColor"/></svg></button>
+      <button type="button" class="tp-btn" id="tp-b-lento" aria-label="Más lento"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 12h12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      <span class="tp-barra-vel" id="tp-b-vel">140 ppm</span>
+      <button type="button" class="tp-btn" id="tp-b-rapido" aria-label="Más rápido"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      <button type="button" class="tp-btn tp-btn-main" id="tp-b-pausa" aria-label="Pausa"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g class="ico-pausa"><rect x="6.5" y="5" width="3.6" height="14" rx="1" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1" fill="currentColor"/></g><path class="ico-play" d="M8 5.2v13.6L19 12z" fill="currentColor"/><g class="ico-reiniciar" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 1 0 2.1-5"/><path d="M5 4.5V9h4.5"/></g></svg></button>
+      <span class="tp-barra-tiempo" id="tp-b-tiempo">0:00</span>
+      <button type="button" class="tp-btn" id="tp-b-salir" aria-label="Salir"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</body>
+</html>

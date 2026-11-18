@@ -1,9 +1,10 @@
 # Centro de Mando MMG · v1
 
-Herramienta interna de Marketing Masters Group, pensada para el celular. Dos pantallas:
+Herramienta interna de Marketing Masters Group, pensada para el celular. Tres pantallas:
 
 1. **Precotizadora**: calcula en segundos el fee mensual, los pagos únicos y el primer pago, en ARS y en USD. No guarda, no exporta y no pide datos del cliente.
 2. **Master de Forms**: arma en un clic el link del formulario de onboarding (`?n=<nombre comercial>&s=<servicios>`). En la URL nunca van emails, teléfonos ni otros datos personales.
+3. **Teleprompter**: pegas o abres un guion (.txt), eliges la velocidad en palabras por minuto y lo lees a pantalla completa: fondo blanco, letra gris y una columna centrada del 40 % del ancho (90 % en el celular), que sube a ritmo constante. Además trae cuenta regresiva, línea guía, modo espejo, tamaño de letra, indicaciones `[entre corchetes]` que no cuentan para el tiempo, tiempo restante, pantalla siempre encendida (Wake Lock) y atajos de teclado (Espacio, ↑ ↓, ← →, + −, Inicio, Esc). El guion no se guarda: si recargas la página, se pierde y el navegador avisa antes.
 
 En vivo: <https://jaredmarketingmaster.github.io/master.forms/>
 
@@ -23,7 +24,7 @@ src/                 fuente (HTML, CSS, JS, forms.config.json, isotipo MMG)
 docs/                GENERADO: lo que sirve GitHub Pages (no editar a mano)
 tools/build.py       src/ + datos de MMG + tokens de marca → docs/
 tools/test_paridad.js  paridad del motor: 22 casos × 2 monedas
-tools/test_ui.js     paridad de la interfaz con Playwright a 390 y 1440 + Master de Forms
+tools/test_ui.js     paridad de la interfaz con Playwright a 390 y 1440 + Master de Forms + Teleprompter
 tools/verificar.py   gate: build → paridad → qa_web.py. Sin "APTO PARA PUSH" no se publica.
 ```
 

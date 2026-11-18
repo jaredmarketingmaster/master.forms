@@ -176,6 +176,80 @@ async function probarForms(ctx, base, vista) {
   await page.close();
 }
 
+const GUION = 'Hola, soy Jared de Marketing Masters Group. [mirar a cámara]\n\n'
+  + 'Hoy te voy a contar cómo armamos un embudo que convierte prospectos fríos en clientes.\n\n'
+  + 'Este es un párrafo de prueba para ver cómo sube el texto en el teleprompter. '.repeat(14);
+
+async function probarTeleprompter(ctx, base, vista) {
+  const page = await ctx.newPage();
+  const errores = [];
+  page.on('pageerror', (e) => errores.push(e.message));
+  page.on('dialog', (d) => d.accept());
+  await page.goto(base + 'teleprompter.html');
+  await page.waitForSelector('html[data-listo="true"]');
+  const f = (m) => falla(vista, 'teleprompter', m);
+  const boton = page.locator('#tp-reproducir');
+  if (!(await boton.isDisabled())) f('sin guion el botón Reproducir debería estar deshabilitado');
+  await page.fill('#tp-texto', GUION);
+  if (await boton.isDisabled()) f('con guion el botón sigue deshabilitado');
+  const palabras = await page.locator('#tp-resumen').textContent();
+  if (palabras !== '232 palabras') f(`conteo de palabras (las [notas] no cuentan): ${palabras}`);
+  await page.locator('#tp-cuenta').uncheck({ force: true });
+  await boton.click();
+  await page.waitForFunction(() => window.MMGTeleprompter.estado() === 'reproduciendo');
+  const vista1 = await page.evaluate(() => {
+    const esc = document.getElementById('tp-escena').getBoundingClientRect();
+    const col = document.getElementById('tp-columna');
+    const cs = getComputedStyle(col);
+    return {
+      cubre: esc.width === innerWidth && Math.round(esc.height) === innerHeight,
+      fondo: getComputedStyle(document.getElementById('tp-escena')).backgroundColor,
+      color: cs.color, anchoPct: col.offsetWidth / innerWidth,
+      notas: col.querySelectorAll('.tp-nota').length,
+      centro: Math.abs(col.getBoundingClientRect().left + col.offsetWidth / 2 - innerWidth / 2)
+    };
+  });
+  if (!vista1.cubre) f('la escena no cubre la pantalla completa');
+  if (vista1.fondo !== 'rgb(255, 255, 255)') f(`fondo no blanco: ${vista1.fondo}`);
+  if (vista1.color !== 'rgb(107, 114, 128)') f(`letras no grises: ${vista1.color}`);
+  const anchoEsperado = vista.startsWith('390') ? 0.9 : 0.4;
+  if (Math.abs(vista1.anchoPct - anchoEsperado) > 0.01) f(`ancho de columna ${vista1.anchoPct.toFixed(2)} (esperado ${anchoEsperado})`);
+  if (vista1.centro > 2) f(`columna descentrada ${vista1.centro}px`);
+  if (vista1.notas !== 1) f(`indicaciones entre corchetes: ${vista1.notas}`);
+  const o1 = await page.evaluate(() => window.MMGTeleprompter.offset());
+  await page.waitForTimeout(1200);
+  const o2 = await page.evaluate(() => window.MMGTeleprompter.offset());
+  if (!(o2 > o1 + 5)) f(`el texto no sube (${o1} → ${o2})`);
+  await page.keyboard.press('Space');
+  if ((await page.evaluate(() => window.MMGTeleprompter.estado())) !== 'pausa') f('Espacio no pausa');
+  const o3 = await page.evaluate(() => window.MMGTeleprompter.offset());
+  await page.waitForTimeout(500);
+  if ((await page.evaluate(() => window.MMGTeleprompter.offset())) !== o3) f('en pausa el texto se sigue moviendo');
+  await page.keyboard.press('ArrowUp');
+  if ((await page.locator('#tp-b-vel').textContent()) !== '145 ppm') f('↑ no sube la velocidad');
+  await page.keyboard.press('Home');
+  if ((await page.evaluate(() => window.MMGTeleprompter.offset())) !== 0) f('Inicio no vuelve al principio');
+  await page.keyboard.press('End');
+  await page.keyboard.press('Space');
+  try { await page.waitForFunction(() => window.MMGTeleprompter.estado() === 'fin', null, { timeout: 2000 }); }
+  catch (e) { f('al final no queda en estado fin'); }
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => window.MMGTeleprompter.estado() === 'cerrado' && !document.fullscreenElement);
+  await page.waitForTimeout(300); // el navegador termina de salir de pantalla completa
+  if (await page.locator('#tp-escena').isVisible()) f('Esc no cierra la escena');
+  if ((await page.inputValue('#tp-texto')) !== GUION) f('al salir se perdió el guion');
+  // Cuenta regresiva
+  await page.locator('#tp-cuenta').check();
+  await boton.click();
+  if ((await page.evaluate(() => window.MMGTeleprompter.estado())) !== 'cuenta') f('no arranca la cuenta regresiva');
+  await page.waitForFunction(() => window.MMGTeleprompter.estado() === 'reproduciendo', null, { timeout: 5000 });
+  await page.locator('#tp-b-salir').click();
+  const desborde = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  if (desborde) f('scroll horizontal');
+  if (errores.length) falla(vista, 'teleprompter-consola', errores.join(' | '));
+  await page.close();
+}
+
 const iCap = process.argv.indexOf('--capturas');
 const dirCapturas = iCap !== -1 ? process.argv[iCap + 1] : null;
 
@@ -197,6 +271,17 @@ async function capturar(ctx, base, vista, dir) {
   await card.getByRole('button', { name: 'Copiar link' }).click();
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: path.join(dir, `forms_${vista}.png`), fullPage: true });
+  page.on('dialog', (d) => d.accept());
+  await page.goto(base + 'teleprompter.html');
+  await page.waitForSelector('html[data-listo="true"]');
+  await page.fill('#tp-texto', GUION);
+  await page.screenshot({ path: path.join(dir, `teleprompter_${vista}.png`), fullPage: true });
+  await page.locator('#tp-cuenta').uncheck({ force: true });
+  await page.locator('#tp-reproducir').click();
+  await page.waitForTimeout(400);
+  await page.keyboard.press('Space');
+  await page.screenshot({ path: path.join(dir, `teleprompter_lectura_${vista}.png`) });
+  await page.keyboard.press('Escape');
   await page.close();
 }
 
@@ -217,6 +302,7 @@ async function capturar(ctx, base, vista, dir) {
     });
     const ok = await probarPrecotizadora(ctx, base, nombre);
     await probarForms(ctx, base, nombre);
+    await probarTeleprompter(ctx, base, nombre);
     if (dirCapturas) await capturar(ctx, base, nombre, dirCapturas);
     resumen[nombre] = ok;
     console.log(`Interfaz ${nombre}: ${ok}/${casos.length} casos OK en pantalla (ARS y USD por caso)`);
