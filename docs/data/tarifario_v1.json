@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generado": "2026-11-21T01:22:40",
+    "generado": "2026-11-21T01:42:11",
     "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
     "fuente": "_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)",
     "regla": "Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."
@@ -8,7 +8,10 @@
   "constantes": {
     "tc_ars_por_usd": 1550.0,
     "redondeo_usd_multiplo": 5,
-    "descuento_extraordinario_pct": 35.7
+    "descuento_extraordinario_pct": 35.7,
+    "promo_lanzamiento_pct": 50,
+    "fin_promo_lanzamiento": "2026-12-31",
+    "meses_promo_por_cliente": 12
   },
   "plataformas": [
     "Meta Ads",
@@ -486,6 +489,10 @@
     {
       "id": "BONIFICAR",
       "texto": "WEB_INST tiene un interruptor 'Bonificar': lista tachada, neto 0."
+    },
+    {
+      "id": "P4",
+      "texto": "Precio de lanzamiento: los montos ars/usd de este archivo son el precio con 50 % off; el precio real es el doble (se muestra tachado, con el ahorro). Vale para quien contrate hasta constantes.fin_promo_lanzamiento y se mantiene 12 meses. Los totales se calculan siempre sobre los montos del archivo, nunca sobre el precio real."
     },
     {
       "id": "R-EMAIL",

@@ -32,7 +32,7 @@ MARCA_CFG = MODULE / "clientes" / "marketing_master" / "site_config.json"
 
 PAGES_URL = "https://jaredmarketingmaster.github.io/master.forms/"
 REGLAS_IMPLEMENTADAS = {"P1", "ICT_ARS", "PLATAFORMAS", "R-EMAIL", "R-REDES", "HUB_EN_EMBUDOS",
-                        "LANDING_BONIF", "BONIFICAR", "HORAS", "CASO_A_CASO", "P2", "TOTALES"}
+                        "LANDING_BONIF", "BONIFICAR", "HORAS", "CASO_A_CASO", "P2", "TOTALES", "P4"}
 MOTOR = SRC / "assets" / "js" / "cotizador.js"
 SERVICIOS_FORMS = {"pauta", "embudos", "creativos", "landing", "web", "webapp"}
 

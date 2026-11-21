@@ -5,7 +5,10 @@
  * MMG_Base_Operaciones/_engine/export_precotizadora.py). Este archivo implementa las
  * reglas escritas en tarifario.reglas, en el mismo orden que quote_calculator.py:
  *   P1 · ICT_ARS · PLATAFORMAS · R-EMAIL · R-REDES · HUB_EN_EMBUDOS · LANDING_BONIF ·
- *   BONIFICAR · HORAS · CASO_A_CASO · P2 · TOTALES
+ *   BONIFICAR · HORAS · CASO_A_CASO · P2 · TOTALES · P4
+ *
+ * P4 (precio de lanzamiento) no cambia ningún cálculo: los totales salen siempre de los
+ * montos del archivo. promoLanzamiento() solo da el precio real (tachado) y el ahorro.
  *
  * Lo usan la app (navegador) y el test de paridad (Node) — es el mismo archivo.
  */
@@ -241,6 +244,24 @@
     return String(tc).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
+  /**
+   * Regla P4 · precio de lanzamiento. Devuelve null si el tarifario no la trae.
+   * real(x) = x / (1 − pct/100): con 50 % off, el doble. ahorro(x) = real(x) − x.
+   */
+  function promoLanzamiento(tarifario) {
+    var c = tarifario.constantes || {};
+    var pct = c.promo_lanzamiento_pct;
+    if (!(typeof pct === 'number' && pct > 0 && pct < 100) || !c.fin_promo_lanzamiento) return null;
+    var f = 100 / (100 - pct);
+    return {
+      pct: pct,
+      fin: c.fin_promo_lanzamiento, // AAAA-MM-DD
+      meses: c.meses_promo_por_cliente || null,
+      real: function (x) { return redondear2(x * f); },
+      ahorro: function (x) { return redondear2(x * f - x); }
+    };
+  }
+
   function calcularAmbas(tarifario, entrada) {
     return { ARS: calcular(tarifario, entrada, 'ARS'), USD: calcular(tarifario, entrada, 'USD') };
   }
@@ -291,6 +312,7 @@
     redondear2: redondear2,
     redondear6: redondear6,
     mapaRedes: mapaRedes,
+    promoLanzamiento: promoLanzamiento,
     UPSELL_PADRE: UPSELL_PADRE,
     REDES_PACKS: REDES_PACKS,
     MONEDAS: MONEDAS

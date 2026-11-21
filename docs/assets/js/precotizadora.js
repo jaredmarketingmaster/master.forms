@@ -391,6 +391,50 @@
     var cant = r.ARS.lineas.length;
     document.getElementById('resumen-cuenta').textContent = cant ? cant + (cant === 1 ? ' línea' : ' líneas') : 'Sin servicios';
     document.getElementById('resumen-valor').textContent = C.dinero(r[estado.moneda].totales.primer_pago_mes_1, estado.moneda);
+    // Regla P4: precio real (tachado) y ahorro. Los totales de arriba no cambian.
+    var bloque = document.getElementById('promo-resumen');
+    bloque.hidden = !PROMO || !cant;
+    if (!PROMO) return;
+    ['ARS', 'USD'].forEach(function (m) {
+      var t = r[m].totales;
+      document.querySelectorAll('[data-real][data-moneda="' + m + '"]').forEach(function (n) {
+        var v = PROMO.real(t[n.getAttribute('data-real')]);
+        n.textContent = C.dinero(v, m);
+        n.setAttribute('data-valor', String(v));
+      });
+      document.querySelectorAll('[data-ahorro][data-moneda="' + m + '"]').forEach(function (n) {
+        var v = PROMO.ahorro(t[n.getAttribute('data-ahorro')]);
+        n.textContent = C.dinero(v, m);
+        n.setAttribute('data-valor', String(v));
+      });
+    });
+  }
+
+  // ---------- Precio de lanzamiento (regla P4) ----------
+  var PROMO = Q.promoLanzamiento(tarifario);
+  function fechaLarga(iso) {
+    var p = String(iso).split('-').map(Number);
+    return String(p[2]).padStart(2, '0') + '/' + String(p[1]).padStart(2, '0') + '/' + p[0];
+  }
+  function pintarPromo() {
+    var aviso = document.getElementById('promo');
+    if (!PROMO) { aviso.hidden = true; return; }
+    var p = PROMO.fin.split('-').map(Number);
+    var desde = new Date(p[0], p[1], 1); // mes siguiente al fin de la promo
+    var mesDesde = new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' }).format(desde);
+    var pct = PROMO.pct + ' %';
+    var vencida = new Date() > new Date(p[0], p[1] - 1, p[2], 23, 59, 59);
+    aviso.textContent = '';
+    aviso.appendChild(el('strong', { text: vencida ? 'Precio de lanzamiento vencido. ' : 'Precio de lanzamiento: ' + pct + ' off. ' }));
+    aviso.appendChild(document.createTextNode(vencida
+      ? 'Terminó el ' + fechaLarga(PROMO.fin) + ': confirma con MMG que el tarifario ya tenga el precio real antes de cotizar.'
+      : 'Todos los precios de esta precotizadora ya tienen ' + pct + ' de descuento sobre el precio real. Vale para quien contrate hasta el ' +
+        fechaLarga(PROMO.fin) + (PROMO.meses ? ' y se mantiene ' + PROMO.meses + ' meses' : '') +
+        '. Desde ' + mesDesde + ', el precio real es el doble.'));
+    aviso.classList.toggle('promo-vencida', vencida);
+    aviso.hidden = false;
+    document.getElementById('promo-resumen-titulo').textContent =
+      'Precio de lanzamiento · ' + pct + ' off hasta el ' + fechaLarga(PROMO.fin) + (PROMO.meses ? ', por ' + PROMO.meses + ' meses' : '');
   }
 
   // Los textos del tarifario pueden nombrar códigos internos: en pantalla va el nombre del servicio.
@@ -664,6 +708,7 @@
 
   document.getElementById('descuento-titulo').textContent = 'Descuento extraordinario ' + pctTexto;
   pintarCarta();
+  pintarPromo();
   leerQuery();
   // Valores de campos que vienen del link
   document.querySelectorAll('[data-horas]').forEach(function (i) { i.value = estado.horas[i.getAttribute('data-horas')]; });

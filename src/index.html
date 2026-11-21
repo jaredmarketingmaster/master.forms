@@ -46,6 +46,8 @@
       <p class="sub" id="sub-tarifario">Tarifario v1 del {{tarifario.generado}} · elige los servicios uno por uno y arma la cotización</p>
     </div>
 
+    <p class="promo" id="promo" hidden></p>
+
     <div class="layout">
       <section class="col-config" aria-labelledby="h-carta">
         <h2 id="h-carta" class="sr-only">Carta de servicios</h2>
@@ -110,6 +112,14 @@
             <div><dt>Pagos únicos</dt><dd class="num"><span data-total="setup_y_unicos" data-moneda="ARS">—</span><span data-total="setup_y_unicos" data-moneda="USD">—</span></dd></div>
             <div class="primer-pago"><dt>Primer pago <span>(mes 1)</span></dt><dd class="num"><span data-total="primer_pago_mes_1" data-moneda="ARS">—</span><span data-total="primer_pago_mes_1" data-moneda="USD">—</span></dd></div>
           </dl>
+          <div class="promo-resumen" id="promo-resumen" hidden>
+            <p class="promo-resumen-titulo" id="promo-resumen-titulo">Precio de lanzamiento</p>
+            <dl>
+              <div><dt>Precio real por mes</dt><dd class="num"><span class="tachado" data-real="fee_mensual" data-moneda="ARS"></span><span class="tachado" data-real="fee_mensual" data-moneda="USD"></span></dd></div>
+              <div><dt>Precio real del primer pago</dt><dd class="num"><span class="tachado" data-real="primer_pago_mes_1" data-moneda="ARS"></span><span class="tachado" data-real="primer_pago_mes_1" data-moneda="USD"></span></dd></div>
+              <div class="promo-ahorro"><dt>Ahorras por mes</dt><dd class="num"><span data-ahorro="fee_mensual" data-moneda="ARS"></span><span data-ahorro="fee_mensual" data-moneda="USD"></span></dd></div>
+            </dl>
+          </div>
           <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
           <div class="acciones compartir">
             <button type="button" class="btn-secundario" id="btn-compartir">Copiar link de esta selección</button>

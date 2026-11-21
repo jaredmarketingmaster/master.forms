@@ -541,3 +541,21 @@ body.tp-abierto { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .wd *, .wd *::before, .wd *::after { transition: none !important; }
 }
+
+/* ---------- Precio de lanzamiento (regla P4 del tarifario) ---------- */
+.promo {
+  margin: 0 0 16px; padding: 12px 14px; border-radius: var(--radius-card);
+  background: var(--accent-tint); border: 1px solid var(--accent); color: var(--text);
+  font-size: 14px; line-height: 1.45;
+}
+.promo strong { color: var(--accent-hover); }
+.promo.promo-vencida { background: var(--pill-neg-bg); border-color: var(--negative); }
+.promo.promo-vencida strong { color: var(--pill-neg-ink); }
+.promo-resumen { display: grid; gap: 6px; padding: 10px 12px; border-radius: var(--radius-control); background: var(--accent-tint); }
+.promo-resumen-titulo { margin: 0; font-size: 13px; font-weight: 700; color: var(--accent-hover); }
+.promo-resumen dl { margin: 0; display: grid; gap: 4px; }
+.promo-resumen dl > div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.promo-resumen dt { color: var(--muted); }
+.promo-resumen dd { margin: 0; white-space: nowrap; }
+.promo-resumen .tachado { color: var(--muted); }
+.promo-ahorro dt, .promo-ahorro dd { color: var(--text); font-weight: 700; }

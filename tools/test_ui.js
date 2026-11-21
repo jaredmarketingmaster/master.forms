@@ -237,6 +237,23 @@ async function probarCarta(page, base, vista) {
     if (await page.locator('#btn-limpiar').isVisible()) f('Escape no cierra la hoja inferior');
     await page.locator('#resumen-toggle').click();
   }
+  // Regla P4: leyenda visible y precio real = monto / (1 − pct) con los totales sin tocar
+  const tarP4 = JSON.parse(fs.readFileSync(path.join(DOCS, 'data', 'tarifario_v1.json'), 'utf8'));
+  const pctP4 = (tarP4.constantes || {}).promo_lanzamiento_pct;
+  if (pctP4) {
+    const leyenda = await page.locator('#promo').textContent();
+    const fin = tarP4.constantes.fin_promo_lanzamiento.split('-').reverse().join('/');
+    if (!(await page.locator('#promo').isVisible()) || !leyenda.includes(String(pctP4)) || !leyenda.includes(fin)) f(`leyenda de lanzamiento: ${leyenda}`);
+    const p4 = await page.evaluate(() => ['ARS', 'USD'].map((m) => ({
+      fee: Number(document.querySelector(`[data-total="fee_mensual"][data-moneda="${m}"]`).dataset.valor),
+      real: Number(document.querySelector(`[data-real="fee_mensual"][data-moneda="${m}"]`).dataset.valor),
+      ahorro: Number(document.querySelector(`[data-ahorro="fee_mensual"][data-moneda="${m}"]`).dataset.valor)
+    })));
+    for (const x of p4) {
+      const esperado = x.fee * 100 / (100 - pctP4);
+      if (!(x.fee > 0) || Math.abs(x.real - esperado) > TOL_TOTAL || Math.abs(x.ahorro - (esperado - x.fee)) > TOL_TOTAL) f(`precio real/ahorro P4: ${JSON.stringify(x)}`);
+    }
+  }
   // Limpiar
   await page.locator('#btn-limpiar').click();
   if ((await codigos()).length) f('Limpiar no vacía la cotización');

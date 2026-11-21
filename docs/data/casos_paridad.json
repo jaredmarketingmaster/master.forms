@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generado": "2026-11-21T01:22:41",
+    "generado": "2026-11-21T01:42:12",
     "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
     "regla": "Totales calculados por quote_calculator.py (--dry-run). Test: los 3 totales deben coincidir con diferencia < 0,005 (redondeo medio centavo hacia arriba); el neto de cada línea, < 0,011 (el cotizador redondea las líneas con round() de Python y puede diferir 1 centavo en un ,5)."
   },
