@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;family=Barlow+Semi+Condensed:wght@600;700&amp;display=swap">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/app.css">
-  <script type="application/json" id="datos-tarifario">{"_meta":{"generado":"2026-11-17T19:37:11","generador":"MMG_Base_Operaciones/_engine/export_precotizadora.py","fuente":"_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)","regla":"Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."},"constantes":{"tc_ars_por_usd":1550.0,"redondeo_usd_multiplo":5,"descuento_extraordinario_pct":35.7},"plataformas":["Meta Ads","Google Ads","TikTok Ads","LinkedIn Ads","X Ads"],"servicios":[{"codigo":"PAUTA","servicio":"Gestión de Pauta Digital · plataforma base","modalidad":"mensual","ars":200000.0,"usd":130.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · tracking, reporting y setup incluidos","admite_descuento_extraordinario":true},{"codigo":"PAUTA_EXTRA","servicio":"Gestión de Pauta Digital · plataforma adicional","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"+50 % de la base · cantidad = plataformas − 1 (--plataformas)","admite_descuento_extraordinario":true},{"codigo":"EMBUDOS","servicio":"Gestión de Embudos de Venta","modalidad":"mensual","ars":90000.0,"usd":60.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · siempre con HUB incluido","admite_descuento_extraordinario":true},{"codigo":"HUB","servicio":"Marketing Master HUB","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS","admite_descuento_extraordinario":true},{"codigo":"CREATIVOS","servicio":"Creación y Mejora de Contenido (creativos para anuncios)","modalidad":"mensual","ars":50000.0,"usd":35.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato","admite_descuento_extraordinario":true},{"codigo":"LANDING","servicio":"Creación de landing page","modalidad":"unico","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · bonificada si van PAUTA + EMBUDOS","admite_descuento_extraordinario":true},{"codigo":"WEB_INST","servicio":"Creación de website institucional","modalidad":"unico","ars":150000.0,"usd":100.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · bonificable con --bonificar WEB_INST","admite_descuento_extraordinario":true},{"codigo":"WEB_APP","servicio":"Web app a medida","modalidad":"hora","ars":35000.0,"usd":25.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Horas estimadas × tarifa por hora (--horas-codigo WEB_APP=N)","admite_descuento_extraordinario":true},{"codigo":"HORA","servicio":"Servicio Personalizado por Hora","modalidad":"hora","ars":35000.0,"usd":25.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Precio fijo en las dos monedas","admite_descuento_extraordinario":true},{"codigo":"CAPACITACION","servicio":"Capacitación a medida para equipos","modalidad":"unico","ars":null,"usd":null,"caso_a_caso":true,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Exige --precio","admite_descuento_extraordinario":true},{"codigo":"ICT_IPHONE","servicio":"Sistema I.C.T. para tiendas de iPhone (producto de nicho, débito automático)","modalidad":"mensual","ars":null,"usd":210.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"ars_por_conversion":true,"estado":"CONFIRMADO","nota":"Valor percibido = lista (sin benchmark propio todavía). Libro Consultor Blue Hacker cap. 23 (oferta I.C.T.): precio máximo, sin descuentos; no aplica tramo de pauta ni bundle; pauta USD 1.000/mes aparte","admite_descuento_extraordinario":false},{"codigo":"ICT_IPHONE_CRM","servicio":"Sistema I.C.T. para tiendas de iPhone con CRM GoHighLevel propio","modalidad":"mensual","ars":null,"usd":150.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"ars_por_conversion":true,"estado":"CONFIRMADO","nota":"Ídem; variante si la tienda ya tiene su CRM","admite_descuento_extraordinario":false}],"reglas":[{"id":"P1","texto":"Cada línea tiene su precio en ARS y en USD (ya calculados en este archivo; el USD sale de ARS ÷ 1.550 hacia arriba al múltiplo de 5). Los totales en USD son la suma de las líneas en USD, nunca el total en ARS convertido."},{"id":"ICT_ARS","texto":"ICT_IPHONE*: solo tienen precio en USD. En ARS se convierte USD × tc_ars_por_usd, sin redondeo."},{"id":"PLATAFORMAS","texto":"Con PAUTA, cada plataforma elegida después de la primera suma 1 unidad de PAUTA_EXTRA (cantidad = plataformas − 1). PAUTA_EXTRA no se elige suelto."},{"id":"HUB_EN_EMBUDOS","texto":"EMBUDOS agrega HUB automáticamente como línea bonificada ('Incluido en la Gestión de Embudos de Venta'): precio de lista visible y tachado, neto 0."},{"id":"LANDING_BONIF","texto":"Si están PAUTA + EMBUDOS + LANDING, LANDING va bonificada ('Bonificada al contratar Pauta + Embudos'): lista tachada, neto 0."},{"id":"BONIFICAR","texto":"WEB_INST tiene un interruptor 'Bonificar': lista tachada, neto 0."},{"id":"HORAS","texto":"WEB_APP y HORA se multiplican por la cantidad de horas."},{"id":"CASO_A_CASO","texto":"CAPACITACION se cotiza caso a caso: precio ingresado a mano, uno para ARS y otro para USD (cada uno se usa solo en su moneda)."},{"id":"P2","texto":"Descuento extraordinario: 35,7 % sobre cada línea no bonificada que lo admita (no ICT_*). Advertencia obligatoria: solo clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared."},{"id":"TOTALES","texto":"fee_mensual = suma de netos 'mensual' · setup_y_unicos = suma de netos 'unico' y 'hora' · primer_pago_mes_1 = setup_y_unicos + fee_mensual. Cada neto de línea se redondea a 6 decimales; los totales se redondean al final a 2 decimales con medio centavo HACIA ARRIBA (228,265 → 228,27). En JS no usar toFixed ni Math.round(x*100) directo: usar Number(Math.round(Number(x + 'e2')) + 'e-2')."}],"advertencias_fijas":["USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS"]}</script>
+  <script type="application/json" id="datos-tarifario">{"_meta":{"generado":"2026-11-21T01:22:40","generador":"MMG_Base_Operaciones/_engine/export_precotizadora.py","fuente":"_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)","regla":"Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."},"constantes":{"tc_ars_por_usd":1550.0,"redondeo_usd_multiplo":5,"descuento_extraordinario_pct":35.7},"plataformas":["Meta Ads","Google Ads","TikTok Ads","LinkedIn Ads","X Ads","Pinterest Ads"],"redes_adicionales":["TikTok","LinkedIn","YouTube Shorts","Pinterest","X","Threads"],"servicios":[{"codigo":"PAUTA","servicio":"Gestión de Pauta Digital · plataforma base","modalidad":"mensual","ars":200000.0,"usd":130.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · tracking, reporting y setup incluidos","admite_descuento_extraordinario":true},{"codigo":"PAUTA_EXTRA","servicio":"Gestión de Pauta Digital · plataforma adicional","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"+50 % de la base · cantidad = plataformas − 1 (--plataformas)","admite_descuento_extraordinario":true},{"codigo":"EMBUDOS","servicio":"Gestión de Embudos de Venta","modalidad":"mensual","ars":90000.0,"usd":60.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · siempre con HUB incluido","admite_descuento_extraordinario":true},{"codigo":"HUB","servicio":"Marketing Master HUB","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS","admite_descuento_extraordinario":true},{"codigo":"CREATIVOS","servicio":"Creación y Mejora de Contenido (creativos para anuncios)","modalidad":"mensual","ars":50000.0,"usd":35.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · cantidad de anuncios a criterio de Jared · el cliente entrega banco de imágenes y videos a pedido","admite_descuento_extraordinario":true},{"codigo":"LANDING","servicio":"Creación de landing page","modalidad":"unico","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · bonificada si van PAUTA + EMBUDOS","admite_descuento_extraordinario":true},{"codigo":"WEB_INST","servicio":"Creación de website institucional","modalidad":"unico","ars":150000.0,"usd":100.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Sainato · bonificable con --bonificar WEB_INST","admite_descuento_extraordinario":true},{"codigo":"WEB_APP","servicio":"Web app a medida","modalidad":"hora","ars":35000.0,"usd":25.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Horas estimadas × tarifa por hora (--horas-codigo WEB_APP=N)","admite_descuento_extraordinario":true},{"codigo":"HORA","servicio":"Servicio Personalizado por Hora","modalidad":"hora","ars":35000.0,"usd":25.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Precio fijo en las dos monedas","admite_descuento_extraordinario":true},{"codigo":"CAPACITACION","servicio":"Capacitación a medida para equipos","modalidad":"unico","ars":null,"usd":null,"caso_a_caso":true,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Exige --precio","admite_descuento_extraordinario":true},{"codigo":"ICT_IPHONE","servicio":"Sistema I.C.T. para tiendas de iPhone (producto de nicho, débito automático)","modalidad":"mensual","ars":null,"usd":210.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"ars_por_conversion":true,"estado":"CONFIRMADO","nota":"Valor percibido = lista (sin benchmark propio todavía). Libro Consultor Blue Hacker cap. 23 (oferta I.C.T.): precio máximo, sin descuentos; no aplica tramo de pauta ni bundle; pauta USD 1.000/mes aparte","admite_descuento_extraordinario":false},{"codigo":"ICT_IPHONE_CRM","servicio":"Sistema I.C.T. para tiendas de iPhone con CRM GoHighLevel propio","modalidad":"mensual","ars":null,"usd":150.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"ars_por_conversion":true,"estado":"CONFIRMADO","nota":"Ídem; variante si la tienda ya tiene su CRM","admite_descuento_extraordinario":false},{"codigo":"ECOMMERCE","servicio":"Gestión de E-commerce","modalidad":"mensual","ars":90000.0,"usd":60.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Mismo precio que EMBUDOS · alcance a confirmar","admite_descuento_extraordinario":true},{"codigo":"EMAIL_EMBUDOS","servicio":"Gestión de Email Marketing (upsell de Embudos)","modalidad":"mensual","ars":45000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"+50 % de EMBUDOS · solo junto con EMBUDOS (R-EMAIL)","admite_descuento_extraordinario":true},{"codigo":"EMAIL_ECOMMERCE","servicio":"Gestión de Email Marketing (upsell de E-commerce)","modalidad":"mensual","ars":45000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"+50 % de ECOMMERCE · solo junto con ECOMMERCE (R-EMAIL)","admite_descuento_extraordinario":true},{"codigo":"REDES_ESENCIAL","servicio":"Gestión de Redes Sociales · Esencial (Instagram + Facebook, 8 estáticos + 4 reels)","modalidad":"mensual","ars":150000.0,"usd":100.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"12 piezas/mes en total, adaptadas a cada red · redes extra con --redes","admite_descuento_extraordinario":true},{"codigo":"REDES_CRECIMIENTO","servicio":"Gestión de Redes Sociales · Crecimiento (Instagram + Facebook, 16 estáticos + 8 reels)","modalidad":"mensual","ars":270000.0,"usd":175.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"24 piezas/mes · ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_DOMINIO","servicio":"Gestión de Redes Sociales · Dominio (Instagram + Facebook, 24 estáticos + 12 reels)","modalidad":"mensual","ars":375000.0,"usd":245.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"36 piezas/mes · ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_TIKTOK_E","servicio":"Red adicional TikTok · Esencial","modalidad":"mensual","ars":45000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"Se agrega solo con --redes","admite_descuento_extraordinario":true},{"codigo":"REDES_X_TIKTOK_C","servicio":"Red adicional TikTok · Crecimiento","modalidad":"mensual","ars":75000.0,"usd":50.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_TIKTOK_D","servicio":"Red adicional TikTok · Dominio","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_LINKEDIN_E","servicio":"Red adicional LinkedIn · Esencial","modalidad":"mensual","ars":45000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_LINKEDIN_C","servicio":"Red adicional LinkedIn · Crecimiento","modalidad":"mensual","ars":75000.0,"usd":50.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_LINKEDIN_D","servicio":"Red adicional LinkedIn · Dominio","modalidad":"mensual","ars":100000.0,"usd":65.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_YOUTUBE_E","servicio":"Red adicional YouTube Shorts · Esencial","modalidad":"mensual","ars":30000.0,"usd":20.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_YOUTUBE_C","servicio":"Red adicional YouTube Shorts · Crecimiento","modalidad":"mensual","ars":50000.0,"usd":35.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_YOUTUBE_D","servicio":"Red adicional YouTube Shorts · Dominio","modalidad":"mensual","ars":65000.0,"usd":45.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_PINTEREST_E","servicio":"Red adicional Pinterest · Esencial","modalidad":"mensual","ars":25000.0,"usd":20.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_PINTEREST_C","servicio":"Red adicional Pinterest · Crecimiento","modalidad":"mensual","ars":40000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_PINTEREST_D","servicio":"Red adicional Pinterest · Dominio","modalidad":"mensual","ars":55000.0,"usd":40.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_X_E","servicio":"Red adicional X · Esencial","modalidad":"mensual","ars":25000.0,"usd":20.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_X_C","servicio":"Red adicional X · Crecimiento","modalidad":"mensual","ars":40000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_X_D","servicio":"Red adicional X · Dominio","modalidad":"mensual","ars":55000.0,"usd":40.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_THREADS_E","servicio":"Red adicional Threads · Esencial","modalidad":"mensual","ars":25000.0,"usd":20.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_THREADS_C","servicio":"Red adicional Threads · Crecimiento","modalidad":"mensual","ars":40000.0,"usd":30.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true},{"codigo":"REDES_X_THREADS_D","servicio":"Red adicional Threads · Dominio","modalidad":"mensual","ars":55000.0,"usd":40.0,"caso_a_caso":false,"ars_derivado_de_usd":false,"estado":"CONFIRMADO","nota":"ídem","admite_descuento_extraordinario":true}],"reglas":[{"id":"P1","texto":"Cada línea tiene su precio en ARS y en USD (ya calculados en este archivo; el USD sale de ARS ÷ 1.550 hacia arriba al múltiplo de 5). Los totales en USD son la suma de las líneas en USD, nunca el total en ARS convertido."},{"id":"ICT_ARS","texto":"ICT_IPHONE*: solo tienen precio en USD. En ARS se convierte USD × tc_ars_por_usd, sin redondeo."},{"id":"PLATAFORMAS","texto":"Con PAUTA, cada plataforma elegida después de la primera suma 1 unidad de PAUTA_EXTRA (cantidad = plataformas − 1). PAUTA_EXTRA no se elige suelto."},{"id":"HUB_EN_EMBUDOS","texto":"EMBUDOS agrega HUB automáticamente como línea bonificada ('Incluido en la Gestión de Embudos de Venta'): precio de lista visible y tachado, neto 0."},{"id":"LANDING_BONIF","texto":"Si están PAUTA + EMBUDOS + LANDING, LANDING va bonificada ('Bonificada al contratar Pauta + Embudos'): lista tachada, neto 0."},{"id":"BONIFICAR","texto":"WEB_INST tiene un interruptor 'Bonificar': lista tachada, neto 0."},{"id":"R-EMAIL","texto":"EMAIL_EMBUDOS solo se elige si está EMBUDOS; EMAIL_ECOMMERCE solo si está ECOMMERCE (upsell de email marketing, 50 % del padre). Sin el padre, la opción queda deshabilitada."},{"id":"R-REDES","texto":"Un solo pack de redes por cotización (REDES_ESENCIAL, REDES_CRECIMIENTO o REDES_DOMINIO; Instagram + Facebook incluidas). Cada red adicional elegida suma la línea REDES_X_<RED>_<nivel> del MISMO nivel del pack (E, C o D); las REDES_X_* no se eligen sueltas."},{"id":"HORAS","texto":"WEB_APP y HORA se multiplican por la cantidad de horas."},{"id":"CASO_A_CASO","texto":"CAPACITACION se cotiza caso a caso: precio ingresado a mano, uno para ARS y otro para USD (cada uno se usa solo en su moneda)."},{"id":"P2","texto":"Descuento extraordinario: 35,7 % sobre cada línea no bonificada que lo admita (no ICT_*). Advertencia obligatoria: solo clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared."},{"id":"TOTALES","texto":"fee_mensual = suma de netos 'mensual' · setup_y_unicos = suma de netos 'unico' y 'hora' · primer_pago_mes_1 = setup_y_unicos + fee_mensual. Cada neto de línea se redondea a 6 decimales; los totales se redondean al final a 2 decimales con medio centavo HACIA ARRIBA (228,265 → 228,27). En JS no usar toFixed ni Math.round(x*100) directo: usar Number(Math.round(Number(x + 'e2')) + 'e-2')."}],"advertencias_fijas":["USD fijo · ARS congelado por semestre (cargado 2026-11-15; revisar 2027-05-15) · bonificado (incluido) si va con EMBUDOS"]}</script>
   <script src="assets/js/comun.js" defer></script>
   <script src="assets/js/cotizador.js" defer></script>
   <script src="assets/js/precotizadora.js" defer></script>
@@ -43,19 +43,14 @@
   <main class="canvas" id="contenido">
     <div class="title-row">
       <h1>Precotizadora</h1>
-      <p class="sub" id="sub-tarifario">Tarifario v1 del 2026-11-17 19:37 · cada línea con su precio en ARS y en USD</p>
+      <p class="sub" id="sub-tarifario">Tarifario v1 del 2026-11-21 01:22 · elige los servicios uno por uno y arma la cotización</p>
     </div>
 
     <div class="layout">
-      <section class="col-config" aria-labelledby="h-servicios">
-        <div class="panel">
-          <div class="panel-head">
-            <h2 id="h-servicios">Servicios</h2>
-            <button type="button" class="btn-text" id="btn-limpiar">Limpiar</button>
-          </div>
-          <div id="servicios" class="servicios">
-            <p class="cargando">Cargando tarifario…</p>
-          </div>
+      <section class="col-config" aria-labelledby="h-carta">
+        <h2 id="h-carta" class="sr-only">Carta de servicios</h2>
+        <div id="carta" class="carta">
+          <p class="cargando">Cargando tarifario…</p>
         </div>
 
         <div class="panel">
@@ -68,71 +63,66 @@
           </div>
           <p class="aviso aviso-warning" id="descuento-aviso" hidden>Solo para clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared</p>
         </div>
-      </section>
-
-      <section class="col-resultado" aria-labelledby="h-resultado">
-        <h2 id="h-resultado" class="sr-only">Resultado</h2>
-        <div class="totales" id="totales" aria-live="polite">
-          <table>
-            <caption class="sr-only">Totales en pesos y en dólares</caption>
-            <thead>
-              <tr><th scope="col"><span class="sr-only">Concepto</span></th><th scope="col" class="num">ARS</th><th scope="col" class="num">USD</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">Fee mensual</th><td class="num" data-total="fee_mensual" data-moneda="ARS">—</td><td class="num" data-total="fee_mensual" data-moneda="USD">—</td></tr>
-              <tr><th scope="row">Pagos únicos</th><td class="num" data-total="setup_y_unicos" data-moneda="ARS">—</td><td class="num" data-total="setup_y_unicos" data-moneda="USD">—</td></tr>
-              <tr class="primer-pago"><th scope="row">Primer pago <span>(mes 1)</span></th><td class="num" data-total="primer_pago_mes_1" data-moneda="ARS">—</td><td class="num" data-total="primer_pago_mes_1" data-moneda="USD">—</td></tr>
-            </tbody>
-          </table>
-          <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <h2>Líneas</h2>
-            <span class="meta" id="lineas-cuenta">0 líneas</span>
-          </div>
-          <div class="tabla-wrap">
-            <table class="lineas">
-              <thead>
-                <tr><th scope="col">Servicio</th><th scope="col" class="num">Cant.</th><th scope="col" class="num">Lista</th><th scope="col" class="num">Final</th></tr>
-              </thead>
-              <tbody id="lineas"></tbody>
-            </table>
-          </div>
-        </div>
 
         <div class="panel">
           <div class="panel-head"><h2>Advertencias</h2></div>
           <ul class="avisos" id="avisos"></ul>
         </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h2>Comando para Claude</h2>
-            <div class="segmented" role="group" aria-label="Moneda del comando">
-              <button type="button" data-moneda-cmd="ARS" aria-pressed="true">ARS</button>
-              <button type="button" data-moneda-cmd="USD" aria-pressed="false">USD</button>
-            </div>
-          </div>
+        <details class="panel panel-plegable" id="panel-comando">
+          <summary><h2>Comando para Claude</h2><span class="meta">Para correr en MMG_Base_Operaciones</span></summary>
           <pre class="comando"><code id="comando">python _engine/quote_calculator.py --cliente &lt;slug&gt; --servicios &lt;servicios&gt; --moneda ARS</code></pre>
           <div class="acciones">
             <button type="button" class="btn-primary" id="btn-copiar-comando">Copiar comando para Claude</button>
             <span class="estado-copia" id="estado-comando" role="status" aria-live="polite"></span>
           </div>
-          <p class="meta">Se corre en MMG_Base_Operaciones. <code>&lt;slug&gt;</code> queda literal: la app no conoce al cliente.</p>
-        </div>
+          <p class="meta"><code>&lt;slug&gt;</code> queda literal: la app no conoce al cliente. La moneda es la que elegiste en el resumen.</p>
+        </details>
       </section>
+
+      <aside class="resumen" id="resumen" data-moneda="ARS" aria-labelledby="h-resumen">
+        <div class="resumen-barra">
+          <button type="button" class="resumen-toggle" id="resumen-toggle" aria-expanded="false" aria-controls="resumen-cuerpo">
+            <span class="rb-texto">
+              <span class="rb-cuenta" id="resumen-cuenta">Sin servicios</span>
+              <span class="rb-label">Primer pago</span>
+            </span>
+            <span class="rb-valor num" id="resumen-valor">—</span>
+            <svg class="rb-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 10l4.5-4.5L12.5 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="segmented segmented-noche" role="group" aria-label="Moneda">
+            <button type="button" data-moneda-vista="ARS" aria-pressed="true">ARS</button>
+            <button type="button" data-moneda-vista="USD" aria-pressed="false">USD</button>
+          </div>
+        </div>
+        <div class="resumen-cuerpo" id="resumen-cuerpo">
+          <div class="resumen-head">
+            <h2 id="h-resumen">Tu cotización</h2>
+            <button type="button" class="btn-text" id="btn-limpiar">Limpiar</button>
+          </div>
+          <table class="lineas">
+            <caption class="sr-only">Líneas elegidas</caption>
+            <thead><tr><th scope="col">Servicio</th><th scope="col" class="num">Precio</th></tr></thead>
+            <tbody id="lineas"></tbody>
+          </table>
+          <dl class="totales" id="totales" aria-live="polite">
+            <div><dt>Fee mensual</dt><dd class="num"><span data-total="fee_mensual" data-moneda="ARS">—</span><span data-total="fee_mensual" data-moneda="USD">—</span></dd></div>
+            <div><dt>Pagos únicos</dt><dd class="num"><span data-total="setup_y_unicos" data-moneda="ARS">—</span><span data-total="setup_y_unicos" data-moneda="USD">—</span></dd></div>
+            <div class="primer-pago"><dt>Primer pago <span>(mes 1)</span></dt><dd class="num"><span data-total="primer_pago_mes_1" data-moneda="ARS">—</span><span data-total="primer_pago_mes_1" data-moneda="USD">—</span></dd></div>
+          </dl>
+          <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
+          <div class="acciones compartir">
+            <button type="button" class="btn-secundario" id="btn-compartir">Copiar link de esta selección</button>
+            <span class="estado-copia" id="estado-compartir" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <footer class="pie">
-      Herramienta interna · no guarda datos · tarifario 2026-11-17 19:37 (182d79db) · build 2026-11-18 19:45
+      Herramienta interna · no guarda datos · tarifario 2026-11-21 01:22 (b033069f) · build 2026-11-21 01:33
     </footer>
   </main>
-
-  <a class="resumen-movil" href="#totales" id="resumen-movil">
-    <span class="resumen-label">Primer pago</span>
-    <span class="resumen-valores num"><span data-resumen="ARS">$&nbsp;0,00</span><span data-resumen="USD">US$&nbsp;0,00</span></span>
-  </a>
+  <div class="resumen-velo" id="resumen-velo" hidden></div>
 </body>
 </html>

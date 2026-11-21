@@ -50,6 +50,7 @@ function entradaDe(c) {
   return {
     servicios: c.servicios || [],
     plataformas: c.plataformas || [],
+    redes: c.redes || [],
     horas: c.horas || {},
     precios: c.precio_caso_a_caso || {},
     bonificar: c.bonificar || [],

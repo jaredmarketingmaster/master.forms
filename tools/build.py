@@ -31,8 +31,9 @@ MMG_DIR = Path(os.environ.get(
 MARCA_CFG = MODULE / "clientes" / "marketing_master" / "site_config.json"
 
 PAGES_URL = "https://jaredmarketingmaster.github.io/master.forms/"
-REGLAS_IMPLEMENTADAS = {"P1", "ICT_ARS", "PLATAFORMAS", "HUB_EN_EMBUDOS", "LANDING_BONIF",
-                        "BONIFICAR", "HORAS", "CASO_A_CASO", "P2", "TOTALES"}
+REGLAS_IMPLEMENTADAS = {"P1", "ICT_ARS", "PLATAFORMAS", "R-EMAIL", "R-REDES", "HUB_EN_EMBUDOS",
+                        "LANDING_BONIF", "BONIFICAR", "HORAS", "CASO_A_CASO", "P2", "TOTALES"}
+MOTOR = SRC / "assets" / "js" / "cotizador.js"
 SERVICIOS_FORMS = {"pauta", "embudos", "creativos", "landing", "web", "webapp"}
 
 # Roles de la app ← tokens del dossier marketing_master (02 §3.1 + brand_dna)
@@ -77,6 +78,11 @@ def validar_tarifario(t: dict) -> None:
     nuevas = ids - REGLAS_IMPLEMENTADAS
     if nuevas:
         fail(f"el tarifario trae reglas sin implementar en cotizador.js: {sorted(nuevas)}")
+    # Cada regla tiene que estar nombrada en la cabecera del motor (no alcanza con esta lista).
+    cabecera = MOTOR.read_text(encoding="utf-8").split("*/", 1)[0]
+    sin_motor = sorted(r for r in ids if not re.search(r"(?<![\w-])" + re.escape(r) + r"(?![\w-])", cabecera))
+    if sin_motor:
+        fail(f"cotizador.js no declara las reglas {sin_motor} en su cabecera: implementarlas antes de publicar")
     faltan = REGLAS_IMPLEMENTADAS - ids
     if faltan:
         fail(f"el tarifario ya no trae las reglas {sorted(faltan)}: revisar el motor antes de publicar")

@@ -45,10 +45,29 @@ function servidor() {
 const fallas = [];
 const falla = (vista, caso, msg) => fallas.push({ vista, caso, detalle: msg });
 
+const PACKS = ['REDES_ESENCIAL', 'REDES_CRECIMIENTO', 'REDES_DOMINIO'];
+const UPSELLS = ['EMAIL_EMBUDOS', 'EMAIL_ECOMMERCE'];
+
+/** Abre la categoría que contiene el selector (si está plegada) con un clic real. */
+async function abrir(page, selector) {
+  const det = page.locator('details.cat', { has: page.locator(selector) });
+  if ((await det.getAttribute('open')) === null) await det.locator('summary').click();
+}
+
 async function aplicarCaso(page, c) {
   for (const cod of c.servicios || []) {
-    const cb = page.locator(`input[data-codigo="${cod}"]`);
-    if (await cb.count()) await cb.check();
+    if (PACKS.includes(cod)) {
+      await abrir(page, '#redes-activo');
+      await page.locator('#redes-activo').check();
+      await page.locator(`[data-pack="${cod}"]`).check({ force: true });
+    } else if (UPSELLS.includes(cod)) {
+      await page.locator(`[data-upsell="${cod}"]`).check();
+    } else {
+      const sel = `input[data-codigo="${cod}"]`;
+      if (!(await page.locator(sel).count())) continue;
+      await abrir(page, sel);
+      await page.locator(sel).check();
+    }
   }
   if ((c.servicios || []).includes('PAUTA')) {
     const objetivo = c.plataformas || [];
@@ -61,12 +80,35 @@ async function aplicarCaso(page, c) {
       if ((await b.getAttribute('aria-pressed')) !== 'true') await b.click();
     }
   }
+  for (const r of c.redes || []) await page.locator(`[data-red="${r}"]`).click();
   for (const [cod, h] of Object.entries(c.horas || {})) await page.fill(`[data-horas="${cod}"]`, String(h));
   for (const [cod, pm] of Object.entries(c.precio_caso_a_caso || {})) {
     for (const [mon, v] of Object.entries(pm)) await page.fill(`[data-precio="${cod}"][data-moneda="${mon}"]`, String(v));
   }
   for (const cod of c.bonificar || []) await page.locator(`[data-bonificar="${cod}"]`).check();
   if (c.descuento_extraordinario) await page.locator('#descuento').check();
+}
+
+/** Compara totales y líneas de la pantalla con lo esperado por quote_calculator.py. */
+function compararConEsperado(r, c, vista, etiqueta) {
+  let ok = true;
+  for (const mon of ['ARS', 'USD']) {
+    const esp = c.esperado[mon];
+    for (const k of TOTALES) {
+      const d = Math.abs(r.tot[mon][k] - Number(esp[k]));
+      if (!(d < TOL_TOTAL)) { ok = false; falla(vista, c.id, `${etiqueta}${mon} ${k}: pantalla ${r.tot[mon][k]} vs ${esp[k]}`); }
+    }
+    const porCod = Object.fromEntries(r.lineas.map((l) => [l.codigo, l]));
+    if (r.lineas.length !== esp.lineas.length) { ok = false; falla(vista, c.id, `${etiqueta}${mon}: ${r.lineas.length} líneas en pantalla vs ${esp.lineas.length}`); }
+    for (const le of esp.lineas) {
+      const l = porCod[le.codigo];
+      if (!l) { ok = false; falla(vista, c.id, `${etiqueta}${mon}: falta la línea ${le.codigo}`); continue; }
+      if (l.bonificada !== le.bonificada) { ok = false; falla(vista, c.id, `${etiqueta}${le.codigo} bonificada ${l.bonificada} vs ${le.bonificada}`); }
+      if (l[mon].neto === null || !(Math.abs(l[mon].neto - le.neto) < TOL_LINEA)) { ok = false; falla(vista, c.id, `${etiqueta}${mon} ${le.codigo} neto ${l[mon].neto} vs ${le.neto}`); }
+      if (!(Math.abs(l[mon].lista - le.lista) < TOL_LINEA)) { ok = false; falla(vista, c.id, `${etiqueta}${mon} ${le.codigo} lista ${l[mon].lista} vs ${le.lista}`); }
+    }
+  }
+  return ok;
 }
 
 async function leerPantalla(page) {
@@ -98,23 +140,15 @@ async function probarPrecotizadora(ctx, base, vista) {
     await page.waitForSelector('html[data-listo="true"]');
     await aplicarCaso(page, c);
     const r = await leerPantalla(page);
-    let casoOk = true;
-    for (const mon of ['ARS', 'USD']) {
-      const esp = c.esperado[mon];
-      for (const k of TOTALES) {
-        const d = Math.abs(r.tot[mon][k] - Number(esp[k]));
-        if (!(d < TOL_TOTAL)) { casoOk = false; falla(vista, c.id, `${mon} ${k}: pantalla ${r.tot[mon][k]} vs ${esp[k]}`); }
-      }
-      const porCod = Object.fromEntries(r.lineas.map((l) => [l.codigo, l]));
-      if (r.lineas.length !== esp.lineas.length) { casoOk = false; falla(vista, c.id, `${mon}: ${r.lineas.length} líneas en pantalla vs ${esp.lineas.length}`); }
-      for (const le of esp.lineas) {
-        const l = porCod[le.codigo];
-        if (!l) { casoOk = false; falla(vista, c.id, `${mon}: falta la línea ${le.codigo}`); continue; }
-        if (l.bonificada !== le.bonificada) { casoOk = false; falla(vista, c.id, `${le.codigo} bonificada ${l.bonificada} vs ${le.bonificada}`); }
-        if (l[mon].neto === null || !(Math.abs(l[mon].neto - le.neto) < TOL_LINEA)) { casoOk = false; falla(vista, c.id, `${mon} ${le.codigo} neto ${l[mon].neto} vs ${le.neto}`); }
-        if (!(Math.abs(l[mon].lista - le.lista) < TOL_LINEA)) { casoOk = false; falla(vista, c.id, `${mon} ${le.codigo} lista ${l[mon].lista} vs ${le.lista}`); }
-      }
-    }
+    let casoOk = compararConEsperado(r, c, vista, '');
+    // Compartir por URL: el link reproduce exactamente la misma cotización.
+    const link = await page.evaluate(() => window.MMGPrecotizadora.link());
+    if (link !== page.url()) { casoOk = false; falla(vista, c.id, `la barra de direcciones no refleja la selección: ${page.url()} vs ${link}`); }
+    const pageLink = await page.context().newPage();
+    await pageLink.goto(link);
+    await pageLink.waitForSelector('html[data-listo="true"]');
+    if (!compararConEsperado(await leerPantalla(pageLink), c, vista, 'link · ')) casoOk = false;
+    await pageLink.close();
     const pideP2 = (c.esperado.ARS.advertencias_del_cotizador || []).some((a) => a.startsWith('Descuento extraordinario'));
     const muestraP2 = r.avisos.some((a) => a.includes('requiere OK de Jared'));
     if (pideP2 !== muestraP2) { casoOk = false; falla(vista, c.id, `advertencia P2: esperada ${pideP2}, en pantalla ${muestraP2}`); }
@@ -127,17 +161,86 @@ async function probarPrecotizadora(ctx, base, vista) {
   // Copiar comando
   await page.goto(base + 'index.html');
   await page.waitForSelector('html[data-listo="true"]');
+  await abrir(page, 'input[data-codigo="PAUTA"]');
   await page.locator('input[data-codigo="PAUTA"]').check();
   await page.locator('[data-plataforma="Google Ads"]').click();
+  await abrir(page, 'input[data-codigo="CREATIVOS"]');
   await page.locator('input[data-codigo="CREATIVOS"]').check();
+  await page.locator('#panel-comando > summary').click();
   await page.click('#btn-copiar-comando');
   const copiado = await page.evaluate(() => navigator.clipboard.readText());
   const esperado = 'python _engine/quote_calculator.py --cliente <slug> --servicios PAUTA,CREATIVOS --moneda ARS --plataformas "Meta Ads,Google Ads"';
   if (copiado !== esperado) falla(vista, 'copiar_comando', `portapapeles: ${copiado}`);
   if (!(await page.locator('#estado-comando').textContent()).includes('copiado')) falla(vista, 'copiar_comando', 'sin confirmación visible');
+  await probarCarta(page, base, vista);
   if (errores.length) falla(vista, 'consola', errores.join(' | '));
   await page.close();
   return ok;
+}
+
+/** Interacciones de la carta: upsell condicionado, cambio de nivel de redes, desglose, Limpiar, códigos ocultos. */
+async function probarCarta(page, base, vista) {
+  const f = (m) => falla(vista, 'carta', m);
+  const codigos = async () => page.$$eval('#lineas tr[data-codigo]', (trs) => trs.map((t) => t.dataset.codigo));
+  await page.goto(base + 'index.html');
+  await page.waitForSelector('html[data-listo="true"]');
+  if (await page.locator('details.cat[open]').count()) f('al abrir sin link, las categorías deberían estar plegadas');
+  // R-EMAIL: el interruptor solo existe con Embudos
+  await abrir(page, 'input[data-codigo="EMBUDOS"]');
+  if (await page.locator('[data-upsell="EMAIL_EMBUDOS"]').isVisible()) f('Email Marketing visible sin Embudos');
+  await page.locator('input[data-codigo="EMBUDOS"]').check();
+  if (!(await page.locator('[data-upsell="EMAIL_EMBUDOS"]').isVisible())) f('Email Marketing no aparece con Embudos');
+  if (!(await page.locator('[data-extra="EMBUDOS"] .tachado').isVisible())) f('el HUB incluido no se ve tachado dentro de Embudos');
+  await page.locator('[data-upsell="EMAIL_EMBUDOS"]').check();
+  await page.locator('input[data-codigo="EMBUDOS"]').uncheck();
+  if ((await codigos()).length) f(`al apagar Embudos quedan líneas: ${await codigos()}`);
+  await page.locator('input[data-codigo="EMBUDOS"]').check();
+  if (await page.locator('[data-upsell="EMAIL_EMBUDOS"]').isChecked()) f('el upsell quedó prendido tras apagar y prender Embudos');
+  // Pauta: desglose por plataforma
+  await abrir(page, 'input[data-codigo="PAUTA"]');
+  await page.locator('input[data-codigo="PAUTA"]').check();
+  await page.locator('[data-plataforma="Google Ads"]').click();
+  await page.locator('[data-plataforma="Pinterest Ads"]').click();
+  const desglose = await page.$$eval('[data-desglose-plataforma]', (li) => li.map((x) => x.dataset.desglosePlataforma));
+  if (desglose.join(',') !== 'Meta Ads,Google Ads,Pinterest Ads') f(`desglose de pauta: ${desglose}`);
+  // R-REDES: cambiar de nivel recalcula las redes elegidas
+  await abrir(page, '#redes-activo');
+  await page.locator('#redes-activo').check();
+  await page.locator('[data-pack="REDES_CRECIMIENTO"]').check({ force: true });
+  await page.locator('[data-red="TikTok"]').click();
+  let cods = await codigos();
+  if (!cods.includes('REDES_CRECIMIENTO') || !cods.includes('REDES_X_TIKTOK_C')) f(`Crecimiento + TikTok: ${cods}`);
+  await page.locator('[data-pack="REDES_DOMINIO"]').check({ force: true });
+  cods = await codigos();
+  if (!cods.includes('REDES_X_TIKTOK_D') || cods.includes('REDES_X_TIKTOK_C') || cods.includes('REDES_CRECIMIENTO')) f(`al pasar a Dominio no se recalculó: ${cods}`);
+  const url = new URL(page.url());
+  if (url.searchParams.get('n') !== 'Dominio' || url.searchParams.get('r') !== 'TikTok') f(`URL sin nivel/redes: ${page.url()}`);
+  // Moneda del resumen
+  await page.locator('[data-moneda-vista="USD"]').first().click();
+  if (!(await page.locator('#resumen-valor').textContent()).includes('US$')) f('el cambio a USD no se refleja en el resumen');
+  // Códigos internos fuera de la interfaz (el comando para Claude va plegado aparte)
+  const visible = await page.evaluate(() => {
+    const clon = document.body.cloneNode(true);
+    clon.querySelectorAll('#panel-comando').forEach((n) => n.remove());
+    return clon.innerText;
+  });
+  // Todo código del tarifario que no sea parte de un nombre (p. ej. "Marketing Master HUB").
+  const tar = JSON.parse(fs.readFileSync(path.join(DOCS, 'data', 'tarifario_v1.json'), 'utf8'));
+  const internos = tar.servicios.map((x) => x.codigo).filter((c) => !tar.servicios.some((x) => x.servicio.includes(c)));
+  const vistos = internos.filter((c) => new RegExp('(^|[^A-Za-z0-9_])' + c + '(?![A-Za-z0-9_])').test(visible));
+  if (vistos.length) f(`códigos internos visibles en la interfaz: ${vistos.join(', ')}`);
+  // Hoja inferior en el celular
+  if (vista.startsWith('390')) {
+    await page.locator('#resumen-toggle').click();
+    if (!(await page.locator('#btn-limpiar').isVisible())) f('la hoja inferior no muestra el detalle al abrirla');
+    await page.keyboard.press('Escape');
+    if (await page.locator('#btn-limpiar').isVisible()) f('Escape no cierra la hoja inferior');
+    await page.locator('#resumen-toggle').click();
+  }
+  // Limpiar
+  await page.locator('#btn-limpiar').click();
+  if ((await codigos()).length) f('Limpiar no vacía la cotización');
+  if (new URL(page.url()).search !== '?m=USD') f(`Limpiar debería dejar solo la moneda en la URL: ${page.url()}`);
 }
 
 async function probarForms(ctx, base, vista) {
@@ -259,9 +362,24 @@ async function capturar(ctx, base, vista, dir) {
   const page = await ctx.newPage();
   await page.goto(base + 'index.html');
   await page.waitForSelector('html[data-listo="true"]');
-  await aplicarCaso(page, casos.find((c) => c.id === 'completo_desc'));
+  await aplicarCaso(page, {
+    servicios: ['PAUTA', 'EMBUDOS', 'EMAIL_EMBUDOS', 'REDES_CRECIMIENTO'],
+    plataformas: ['Meta Ads', 'Google Ads', 'Pinterest Ads'], redes: ['TikTok']
+  });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.screenshot({ path: path.join(dir, `precotizadora_${vista}.png`), fullPage: true });
+  await page.screenshot({ path: path.join(dir, `precotizadora_${vista}.png`), fullPage: !vista.startsWith('390') });
+  if (vista.startsWith('390')) {
+    let i = 1;
+    for (const sel of ['details[data-cat="embudos"]', 'details[data-cat="redes"]']) {
+      await page.locator(sel).evaluate((n) => n.scrollIntoView({ block: 'start' }));
+      await page.evaluate(() => window.scrollBy(0, -64));
+      await page.screenshot({ path: path.join(dir, `precotizadora_${vista}_${++i}.png`) });
+    }
+    await page.locator('#resumen-toggle').click();
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: path.join(dir, `precotizadora_${vista}_resumen.png`) });
+    await page.keyboard.press('Escape');
+  }
   await page.goto(base + 'forms.html');
   await page.waitForSelector('html[data-listo="true"]');
   const card = page.locator('[data-form="brief-crecimiento"]');

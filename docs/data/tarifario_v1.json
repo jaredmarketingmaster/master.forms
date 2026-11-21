@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generado": "2026-11-17T19:37:11",
+    "generado": "2026-11-21T01:22:40",
     "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
     "fuente": "_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)",
     "regla": "Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."
@@ -15,7 +15,16 @@
     "Google Ads",
     "TikTok Ads",
     "LinkedIn Ads",
-    "X Ads"
+    "X Ads",
+    "Pinterest Ads"
+  ],
+  "redes_adicionales": [
+    "TikTok",
+    "LinkedIn",
+    "YouTube Shorts",
+    "Pinterest",
+    "X",
+    "Threads"
   ],
   "servicios": [
     {
@@ -75,7 +84,7 @@
       "caso_a_caso": false,
       "ars_derivado_de_usd": false,
       "estado": "CONFIRMADO",
-      "nota": "Sainato",
+      "nota": "Sainato · cantidad de anuncios a criterio de Jared · el cliente entrega banco de imágenes y videos a pedido",
       "admite_descuento_extraordinario": true
     },
     {
@@ -163,6 +172,294 @@
       "estado": "CONFIRMADO",
       "nota": "Ídem; variante si la tienda ya tiene su CRM",
       "admite_descuento_extraordinario": false
+    },
+    {
+      "codigo": "ECOMMERCE",
+      "servicio": "Gestión de E-commerce",
+      "modalidad": "mensual",
+      "ars": 90000.0,
+      "usd": 60.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Mismo precio que EMBUDOS · alcance a confirmar",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "EMAIL_EMBUDOS",
+      "servicio": "Gestión de Email Marketing (upsell de Embudos)",
+      "modalidad": "mensual",
+      "ars": 45000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "+50 % de EMBUDOS · solo junto con EMBUDOS (R-EMAIL)",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "EMAIL_ECOMMERCE",
+      "servicio": "Gestión de Email Marketing (upsell de E-commerce)",
+      "modalidad": "mensual",
+      "ars": 45000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "+50 % de ECOMMERCE · solo junto con ECOMMERCE (R-EMAIL)",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_ESENCIAL",
+      "servicio": "Gestión de Redes Sociales · Esencial (Instagram + Facebook, 8 estáticos + 4 reels)",
+      "modalidad": "mensual",
+      "ars": 150000.0,
+      "usd": 100.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "12 piezas/mes en total, adaptadas a cada red · redes extra con --redes",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_CRECIMIENTO",
+      "servicio": "Gestión de Redes Sociales · Crecimiento (Instagram + Facebook, 16 estáticos + 8 reels)",
+      "modalidad": "mensual",
+      "ars": 270000.0,
+      "usd": 175.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "24 piezas/mes · ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_DOMINIO",
+      "servicio": "Gestión de Redes Sociales · Dominio (Instagram + Facebook, 24 estáticos + 12 reels)",
+      "modalidad": "mensual",
+      "ars": 375000.0,
+      "usd": 245.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "36 piezas/mes · ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_TIKTOK_E",
+      "servicio": "Red adicional TikTok · Esencial",
+      "modalidad": "mensual",
+      "ars": 45000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Se agrega solo con --redes",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_TIKTOK_C",
+      "servicio": "Red adicional TikTok · Crecimiento",
+      "modalidad": "mensual",
+      "ars": 75000.0,
+      "usd": 50.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_TIKTOK_D",
+      "servicio": "Red adicional TikTok · Dominio",
+      "modalidad": "mensual",
+      "ars": 100000.0,
+      "usd": 65.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_LINKEDIN_E",
+      "servicio": "Red adicional LinkedIn · Esencial",
+      "modalidad": "mensual",
+      "ars": 45000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_LINKEDIN_C",
+      "servicio": "Red adicional LinkedIn · Crecimiento",
+      "modalidad": "mensual",
+      "ars": 75000.0,
+      "usd": 50.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_LINKEDIN_D",
+      "servicio": "Red adicional LinkedIn · Dominio",
+      "modalidad": "mensual",
+      "ars": 100000.0,
+      "usd": 65.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_YOUTUBE_E",
+      "servicio": "Red adicional YouTube Shorts · Esencial",
+      "modalidad": "mensual",
+      "ars": 30000.0,
+      "usd": 20.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_YOUTUBE_C",
+      "servicio": "Red adicional YouTube Shorts · Crecimiento",
+      "modalidad": "mensual",
+      "ars": 50000.0,
+      "usd": 35.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_YOUTUBE_D",
+      "servicio": "Red adicional YouTube Shorts · Dominio",
+      "modalidad": "mensual",
+      "ars": 65000.0,
+      "usd": 45.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_PINTEREST_E",
+      "servicio": "Red adicional Pinterest · Esencial",
+      "modalidad": "mensual",
+      "ars": 25000.0,
+      "usd": 20.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_PINTEREST_C",
+      "servicio": "Red adicional Pinterest · Crecimiento",
+      "modalidad": "mensual",
+      "ars": 40000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_PINTEREST_D",
+      "servicio": "Red adicional Pinterest · Dominio",
+      "modalidad": "mensual",
+      "ars": 55000.0,
+      "usd": 40.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_X_E",
+      "servicio": "Red adicional X · Esencial",
+      "modalidad": "mensual",
+      "ars": 25000.0,
+      "usd": 20.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_X_C",
+      "servicio": "Red adicional X · Crecimiento",
+      "modalidad": "mensual",
+      "ars": 40000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_X_D",
+      "servicio": "Red adicional X · Dominio",
+      "modalidad": "mensual",
+      "ars": 55000.0,
+      "usd": 40.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_THREADS_E",
+      "servicio": "Red adicional Threads · Esencial",
+      "modalidad": "mensual",
+      "ars": 25000.0,
+      "usd": 20.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_THREADS_C",
+      "servicio": "Red adicional Threads · Crecimiento",
+      "modalidad": "mensual",
+      "ars": 40000.0,
+      "usd": 30.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "REDES_X_THREADS_D",
+      "servicio": "Red adicional Threads · Dominio",
+      "modalidad": "mensual",
+      "ars": 55000.0,
+      "usd": 40.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "ídem",
+      "admite_descuento_extraordinario": true
     }
   ],
   "reglas": [
@@ -189,6 +486,14 @@
     {
       "id": "BONIFICAR",
       "texto": "WEB_INST tiene un interruptor 'Bonificar': lista tachada, neto 0."
+    },
+    {
+      "id": "R-EMAIL",
+      "texto": "EMAIL_EMBUDOS solo se elige si está EMBUDOS; EMAIL_ECOMMERCE solo si está ECOMMERCE (upsell de email marketing, 50 % del padre). Sin el padre, la opción queda deshabilitada."
+    },
+    {
+      "id": "R-REDES",
+      "texto": "Un solo pack de redes por cotización (REDES_ESENCIAL, REDES_CRECIMIENTO o REDES_DOMINIO; Instagram + Facebook incluidas). Cada red adicional elegida suma la línea REDES_X_<RED>_<nivel> del MISMO nivel del pack (E, C o D); las REDES_X_* no se eligen sueltas."
     },
     {
       "id": "HORAS",

@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generado": "2026-11-17T19:37:11",
+    "generado": "2026-11-21T01:22:41",
     "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
     "regla": "Totales calculados por quote_calculator.py (--dry-run). Test: los 3 totales deben coincidir con diferencia < 0,005 (redondeo medio centavo hacia arriba); el neto de cada línea, < 0,011 (el cotizador redondea las líneas con round() de Python y puede diferir 1 centavo en un ,5)."
   },
@@ -173,6 +173,139 @@
               "cantidad": 4.0,
               "lista": 260.0,
               "neto": 260.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_6",
+      "servicios": [
+        "PAUTA"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads",
+        "TikTok Ads",
+        "LinkedIn Ads",
+        "X Ads",
+        "Pinterest Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 700000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 700000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 5.0,
+              "lista": 500000.0,
+              "neto": 500000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 455.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 455.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 5.0,
+              "lista": 325.0,
+              "neto": 325.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "pauta_meta_google_pinterest",
+      "servicios": [
+        "PAUTA"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads",
+        "Pinterest Ads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 400000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 400000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 2.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 260.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 260.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 2.0,
+              "lista": 130.0,
+              "neto": 130.0,
               "bonificada": false,
               "descuento_pct": 0.0
             }
@@ -1480,6 +1613,765 @@
               "neto": 150.0,
               "bonificada": false,
               "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ecommerce_solo",
+      "servicios": [
+        "ECOMMERCE"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 90000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 90000.0,
+          "lineas": [
+            {
+              "codigo": "ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 60.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 60.0,
+          "lineas": [
+            {
+              "codigo": "ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ecommerce_email",
+      "servicios": [
+        "ECOMMERCE",
+        "EMAIL_ECOMMERCE"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 135000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 135000.0,
+          "lineas": [
+            {
+              "codigo": "ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMAIL_ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 45000.0,
+              "neto": 45000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 90.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 90.0,
+          "lineas": [
+            {
+              "codigo": "ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMAIL_ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 30.0,
+              "neto": 30.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "embudos_email",
+      "servicios": [
+        "EMBUDOS",
+        "EMAIL_EMBUDOS"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 135000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 135000.0,
+          "lineas": [
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMAIL_EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 45000.0,
+              "neto": 45000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 90.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 90.0,
+          "lineas": [
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMAIL_EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 30.0,
+              "neto": 30.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "redes_esencial",
+      "servicios": [
+        "REDES_ESENCIAL"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 150000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 150000.0,
+          "lineas": [
+            {
+              "codigo": "REDES_ESENCIAL",
+              "cantidad": 1.0,
+              "lista": 150000.0,
+              "neto": 150000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 100.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 100.0,
+          "lineas": [
+            {
+              "codigo": "REDES_ESENCIAL",
+              "cantidad": 1.0,
+              "lista": 100.0,
+              "neto": 100.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "redes_crecimiento_tiktok_linkedin",
+      "servicios": [
+        "REDES_CRECIMIENTO"
+      ],
+      "redes": [
+        "TikTok",
+        "LinkedIn"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 420000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 420000.0,
+          "lineas": [
+            {
+              "codigo": "REDES_CRECIMIENTO",
+              "cantidad": 1.0,
+              "lista": 270000.0,
+              "neto": 270000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_TIKTOK_C",
+              "cantidad": 1.0,
+              "lista": 75000.0,
+              "neto": 75000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_LINKEDIN_C",
+              "cantidad": 1.0,
+              "lista": 75000.0,
+              "neto": 75000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 275.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 275.0,
+          "lineas": [
+            {
+              "codigo": "REDES_CRECIMIENTO",
+              "cantidad": 1.0,
+              "lista": 175.0,
+              "neto": 175.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_TIKTOK_C",
+              "cantidad": 1.0,
+              "lista": 50.0,
+              "neto": 50.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_LINKEDIN_C",
+              "cantidad": 1.0,
+              "lista": 50.0,
+              "neto": 50.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "redes_dominio_todas",
+      "servicios": [
+        "REDES_DOMINIO"
+      ],
+      "redes": [
+        "TikTok",
+        "LinkedIn",
+        "YouTube Shorts",
+        "Pinterest",
+        "X",
+        "Threads"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 805000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 805000.0,
+          "lineas": [
+            {
+              "codigo": "REDES_DOMINIO",
+              "cantidad": 1.0,
+              "lista": 375000.0,
+              "neto": 375000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_TIKTOK_D",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_LINKEDIN_D",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 100000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_YOUTUBE_D",
+              "cantidad": 1.0,
+              "lista": 65000.0,
+              "neto": 65000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_PINTEREST_D",
+              "cantidad": 1.0,
+              "lista": 55000.0,
+              "neto": 55000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_X_D",
+              "cantidad": 1.0,
+              "lista": 55000.0,
+              "neto": 55000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_THREADS_D",
+              "cantidad": 1.0,
+              "lista": 55000.0,
+              "neto": 55000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 540.0,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 540.0,
+          "lineas": [
+            {
+              "codigo": "REDES_DOMINIO",
+              "cantidad": 1.0,
+              "lista": 245.0,
+              "neto": 245.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_TIKTOK_D",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_LINKEDIN_D",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 65.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_YOUTUBE_D",
+              "cantidad": 1.0,
+              "lista": 45.0,
+              "neto": 45.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_PINTEREST_D",
+              "cantidad": 1.0,
+              "lista": 40.0,
+              "neto": 40.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_X_D",
+              "cantidad": 1.0,
+              "lista": 40.0,
+              "neto": 40.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_THREADS_D",
+              "cantidad": 1.0,
+              "lista": 40.0,
+              "neto": 40.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "menu_completo",
+      "servicios": [
+        "PAUTA",
+        "EMBUDOS",
+        "EMAIL_EMBUDOS",
+        "REDES_CRECIMIENTO",
+        "CREATIVOS",
+        "LANDING"
+      ],
+      "plataformas": [
+        "Meta Ads",
+        "Google Ads",
+        "Pinterest Ads"
+      ],
+      "redes": [
+        "TikTok"
+      ],
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 930000.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 930000.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 2.0,
+              "lista": 200000.0,
+              "neto": 200000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 90000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMAIL_EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 45000.0,
+              "neto": 45000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_CRECIMIENTO",
+              "cantidad": 1.0,
+              "lista": 270000.0,
+              "neto": 270000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_TIKTOK_C",
+              "cantidad": 1.0,
+              "lista": 75000.0,
+              "neto": 75000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 50000.0,
+              "neto": 50000.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 100000.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 610.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 610.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "PAUTA_EXTRA",
+              "cantidad": 2.0,
+              "lista": 130.0,
+              "neto": 130.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 60.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "HUB",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "EMAIL_EMBUDOS",
+              "cantidad": 1.0,
+              "lista": 30.0,
+              "neto": 30.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_CRECIMIENTO",
+              "cantidad": 1.0,
+              "lista": 175.0,
+              "neto": 175.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "REDES_X_TIKTOK_C",
+              "cantidad": 1.0,
+              "lista": 50.0,
+              "neto": 50.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "CREATIVOS",
+              "cantidad": 1.0,
+              "lista": 35.0,
+              "neto": 35.0,
+              "bonificada": false,
+              "descuento_pct": 0.0
+            },
+            {
+              "codigo": "LANDING",
+              "cantidad": 1.0,
+              "lista": 65.0,
+              "neto": 0.0,
+              "bonificada": true,
+              "descuento_pct": 0.0
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        }
+      }
+    },
+    {
+      "id": "menu_ecommerce_desc",
+      "servicios": [
+        "PAUTA",
+        "ECOMMERCE",
+        "EMAIL_ECOMMERCE",
+        "REDES_ESENCIAL"
+      ],
+      "plataformas": [
+        "Meta Ads"
+      ],
+      "redes": [
+        "YouTube Shorts"
+      ],
+      "descuento_extraordinario": true,
+      "esperado": {
+        "ARS": {
+          "fee_mensual": 331145.0,
+          "setup_y_unicos": 0.0,
+          "primer_pago_mes_1": 331145.0,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 200000.0,
+              "neto": 128600.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 90000.0,
+              "neto": 57870.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "EMAIL_ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 45000.0,
+              "neto": 28935.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "REDES_ESENCIAL",
+              "cantidad": 1.0,
+              "lista": 150000.0,
+              "neto": 96450.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "REDES_X_YOUTUBE_E",
+              "cantidad": 1.0,
+              "lista": 30000.0,
+              "neto": 19290.0,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            }
+          ],
+          "advertencias_del_cotizador": [
+            "Descuento extraordinario 35.7 % (P2): solo clientes por hora que pasan a mensual, una vez al año, por 12 meses. Requiere OK de Jared.",
+            "Sin ticket/margen del cliente (ni dossier ni --ticket-cliente/--margen-cliente): punto de equilibrio no calculado."
+          ]
+        },
+        "USD": {
+          "fee_mensual": 218.62,
+          "setup_y_unicos": 0,
+          "primer_pago_mes_1": 218.62,
+          "lineas": [
+            {
+              "codigo": "PAUTA",
+              "cantidad": 1.0,
+              "lista": 130.0,
+              "neto": 83.59,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 60.0,
+              "neto": 38.58,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "EMAIL_ECOMMERCE",
+              "cantidad": 1.0,
+              "lista": 30.0,
+              "neto": 19.29,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "REDES_ESENCIAL",
+              "cantidad": 1.0,
+              "lista": 100.0,
+              "neto": 64.3,
+              "bonificada": false,
+              "descuento_pct": 35.7
+            },
+            {
+              "codigo": "REDES_X_YOUTUBE_E",
+              "cantidad": 1.0,
+              "lista": 20.0,
+              "neto": 12.86,
+              "bonificada": false,
+              "descuento_pct": 35.7
             }
           ],
           "advertencias_del_cotizador": [

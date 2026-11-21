@@ -43,19 +43,14 @@
   <main class="canvas" id="contenido">
     <div class="title-row">
       <h1>Precotizadora</h1>
-      <p class="sub" id="sub-tarifario">Tarifario v1 del {{tarifario.generado}} · cada línea con su precio en ARS y en USD</p>
+      <p class="sub" id="sub-tarifario">Tarifario v1 del {{tarifario.generado}} · elige los servicios uno por uno y arma la cotización</p>
     </div>
 
     <div class="layout">
-      <section class="col-config" aria-labelledby="h-servicios">
-        <div class="panel">
-          <div class="panel-head">
-            <h2 id="h-servicios">Servicios</h2>
-            <button type="button" class="btn-text" id="btn-limpiar">Limpiar</button>
-          </div>
-          <div id="servicios" class="servicios">
-            <p class="cargando">Cargando tarifario…</p>
-          </div>
+      <section class="col-config" aria-labelledby="h-carta">
+        <h2 id="h-carta" class="sr-only">Carta de servicios</h2>
+        <div id="carta" class="carta">
+          <p class="cargando">Cargando tarifario…</p>
         </div>
 
         <div class="panel">
@@ -68,71 +63,66 @@
           </div>
           <p class="aviso aviso-warning" id="descuento-aviso" hidden>Solo para clientes por hora que pasan a mensual · una vez al año · 12 meses · requiere OK de Jared</p>
         </div>
-      </section>
-
-      <section class="col-resultado" aria-labelledby="h-resultado">
-        <h2 id="h-resultado" class="sr-only">Resultado</h2>
-        <div class="totales" id="totales" aria-live="polite">
-          <table>
-            <caption class="sr-only">Totales en pesos y en dólares</caption>
-            <thead>
-              <tr><th scope="col"><span class="sr-only">Concepto</span></th><th scope="col" class="num">ARS</th><th scope="col" class="num">USD</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">Fee mensual</th><td class="num" data-total="fee_mensual" data-moneda="ARS">—</td><td class="num" data-total="fee_mensual" data-moneda="USD">—</td></tr>
-              <tr><th scope="row">Pagos únicos</th><td class="num" data-total="setup_y_unicos" data-moneda="ARS">—</td><td class="num" data-total="setup_y_unicos" data-moneda="USD">—</td></tr>
-              <tr class="primer-pago"><th scope="row">Primer pago <span>(mes 1)</span></th><td class="num" data-total="primer_pago_mes_1" data-moneda="ARS">—</td><td class="num" data-total="primer_pago_mes_1" data-moneda="USD">—</td></tr>
-            </tbody>
-          </table>
-          <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <h2>Líneas</h2>
-            <span class="meta" id="lineas-cuenta">0 líneas</span>
-          </div>
-          <div class="tabla-wrap">
-            <table class="lineas">
-              <thead>
-                <tr><th scope="col">Servicio</th><th scope="col" class="num">Cant.</th><th scope="col" class="num">Lista</th><th scope="col" class="num">Final</th></tr>
-              </thead>
-              <tbody id="lineas"></tbody>
-            </table>
-          </div>
-        </div>
 
         <div class="panel">
           <div class="panel-head"><h2>Advertencias</h2></div>
           <ul class="avisos" id="avisos"></ul>
         </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h2>Comando para Claude</h2>
-            <div class="segmented" role="group" aria-label="Moneda del comando">
-              <button type="button" data-moneda-cmd="ARS" aria-pressed="true">ARS</button>
-              <button type="button" data-moneda-cmd="USD" aria-pressed="false">USD</button>
-            </div>
-          </div>
+        <details class="panel panel-plegable" id="panel-comando">
+          <summary><h2>Comando para Claude</h2><span class="meta">Para correr en MMG_Base_Operaciones</span></summary>
           <pre class="comando"><code id="comando">python _engine/quote_calculator.py --cliente &lt;slug&gt; --servicios &lt;servicios&gt; --moneda ARS</code></pre>
           <div class="acciones">
             <button type="button" class="btn-primary" id="btn-copiar-comando">Copiar comando para Claude</button>
             <span class="estado-copia" id="estado-comando" role="status" aria-live="polite"></span>
           </div>
-          <p class="meta">Se corre en MMG_Base_Operaciones. <code>&lt;slug&gt;</code> queda literal: la app no conoce al cliente.</p>
-        </div>
+          <p class="meta"><code>&lt;slug&gt;</code> queda literal: la app no conoce al cliente. La moneda es la que elegiste en el resumen.</p>
+        </details>
       </section>
+
+      <aside class="resumen" id="resumen" data-moneda="ARS" aria-labelledby="h-resumen">
+        <div class="resumen-barra">
+          <button type="button" class="resumen-toggle" id="resumen-toggle" aria-expanded="false" aria-controls="resumen-cuerpo">
+            <span class="rb-texto">
+              <span class="rb-cuenta" id="resumen-cuenta">Sin servicios</span>
+              <span class="rb-label">Primer pago</span>
+            </span>
+            <span class="rb-valor num" id="resumen-valor">—</span>
+            <svg class="rb-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 10l4.5-4.5L12.5 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="segmented segmented-noche" role="group" aria-label="Moneda">
+            <button type="button" data-moneda-vista="ARS" aria-pressed="true">ARS</button>
+            <button type="button" data-moneda-vista="USD" aria-pressed="false">USD</button>
+          </div>
+        </div>
+        <div class="resumen-cuerpo" id="resumen-cuerpo">
+          <div class="resumen-head">
+            <h2 id="h-resumen">Tu cotización</h2>
+            <button type="button" class="btn-text" id="btn-limpiar">Limpiar</button>
+          </div>
+          <table class="lineas">
+            <caption class="sr-only">Líneas elegidas</caption>
+            <thead><tr><th scope="col">Servicio</th><th scope="col" class="num">Precio</th></tr></thead>
+            <tbody id="lineas"></tbody>
+          </table>
+          <dl class="totales" id="totales" aria-live="polite">
+            <div><dt>Fee mensual</dt><dd class="num"><span data-total="fee_mensual" data-moneda="ARS">—</span><span data-total="fee_mensual" data-moneda="USD">—</span></dd></div>
+            <div><dt>Pagos únicos</dt><dd class="num"><span data-total="setup_y_unicos" data-moneda="ARS">—</span><span data-total="setup_y_unicos" data-moneda="USD">—</span></dd></div>
+            <div class="primer-pago"><dt>Primer pago <span>(mes 1)</span></dt><dd class="num"><span data-total="primer_pago_mes_1" data-moneda="ARS">—</span><span data-total="primer_pago_mes_1" data-moneda="USD">—</span></dd></div>
+          </dl>
+          <p class="totales-nota">USD = suma de las líneas en USD, no el total en ARS convertido.</p>
+          <div class="acciones compartir">
+            <button type="button" class="btn-secundario" id="btn-compartir">Copiar link de esta selección</button>
+            <span class="estado-copia" id="estado-compartir" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <footer class="pie">
       Herramienta interna · no guarda datos · tarifario {{tarifario.generado}} ({{tarifario.sha}}) · build {{build.fecha}}
     </footer>
   </main>
-
-  <a class="resumen-movil" href="#totales" id="resumen-movil">
-    <span class="resumen-label">Primer pago</span>
-    <span class="resumen-valores num"><span data-resumen="ARS">$&nbsp;0,00</span><span data-resumen="USD">US$&nbsp;0,00</span></span>
-  </a>
+  <div class="resumen-velo" id="resumen-velo" hidden></div>
 </body>
 </html>
