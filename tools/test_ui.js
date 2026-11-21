@@ -46,7 +46,7 @@ const fallas = [];
 const falla = (vista, caso, msg) => fallas.push({ vista, caso, detalle: msg });
 
 const PACKS = ['REDES_ESENCIAL', 'REDES_CRECIMIENTO', 'REDES_DOMINIO'];
-const UPSELLS = ['EMAIL_EMBUDOS', 'EMAIL_ECOMMERCE'];
+const UPSELLS = ['EMAIL_EMBUDOS', 'EMAIL_ECOMMERCE', 'CREATIVOS', 'CREATIVOS_PRODUCTO', 'ECOMMERCE_PRODUCTO'];
 
 /** Abre la categoría que contiene el selector (si está plegada) con un clic real. */
 async function abrir(page, selector) {
@@ -82,6 +82,7 @@ async function aplicarCaso(page, c) {
   }
   for (const r of c.redes || []) await page.locator(`[data-red="${r}"]`).click();
   for (const [cod, h] of Object.entries(c.horas || {})) await page.fill(`[data-horas="${cod}"]`, String(h));
+  if (c.productos) await page.fill('[data-productos]', String(c.productos));
   for (const [cod, pm] of Object.entries(c.precio_caso_a_caso || {})) {
     for (const [mon, v] of Object.entries(pm)) await page.fill(`[data-precio="${cod}"][data-moneda="${mon}"]`, String(v));
   }
@@ -164,8 +165,7 @@ async function probarPrecotizadora(ctx, base, vista) {
   await abrir(page, 'input[data-codigo="PAUTA"]');
   await page.locator('input[data-codigo="PAUTA"]').check();
   await page.locator('[data-plataforma="Google Ads"]').click();
-  await abrir(page, 'input[data-codigo="CREATIVOS"]');
-  await page.locator('input[data-codigo="CREATIVOS"]').check();
+  await page.locator('[data-upsell="CREATIVOS"]').check(); // R-UPSELL: dentro de la tarjeta de Pauta
   await page.locator('#panel-comando > summary').click();
   await page.click('#btn-copiar-comando');
   const copiado = await page.evaluate(() => navigator.clipboard.readText());

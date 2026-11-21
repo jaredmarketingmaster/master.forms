@@ -52,6 +52,7 @@ function entradaDe(c) {
     plataformas: c.plataformas || [],
     redes: c.redes || [],
     horas: c.horas || {},
+    productos: c.productos,
     precios: c.precio_caso_a_caso || {},
     bonificar: c.bonificar || [],
     descuentoExtraordinario: !!c.descuento_extraordinario

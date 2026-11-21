@@ -25,16 +25,25 @@
   var CATEGORIAS = [
     { id: 'pauta', titulo: 'Pauta digital', codigos: ['PAUTA'] },
     { id: 'embudos', titulo: 'Embudos y CRM', codigos: ['EMBUDOS', 'HUB'] },
-    { id: 'ecommerce', titulo: 'E-commerce', codigos: ['ECOMMERCE'] },
+    { id: 'ecommerce', titulo: 'E-commerce', sub: 'Gestión y desarrollo', codigos: ['ECOMMERCE', 'ECOMMERCE_DEV'] },
     { id: 'redes', titulo: 'Redes sociales', especial: 'redes' },
-    { id: 'creativos', titulo: 'Creativos y contenido', codigos: ['CREATIVOS'] },
     { id: 'web', titulo: 'Web', sub: 'Landing, institucional y web app', codigos: ['LANDING', 'WEB_INST', 'WEB_APP'] },
     { id: 'horas', titulo: 'Horas y capacitación', codigos: ['HORA', 'CAPACITACION'] },
     { id: 'nicho', titulo: 'Producto de nicho', sub: 'I.C.T. iPhone', codigos: ['ICT_IPHONE', 'ICT_IPHONE_CRM'] }
   ];
-  var UPSELL = Q.UPSELL_PADRE; // { EMAIL_EMBUDOS: 'EMBUDOS', … }
-  var UPSELL_DE = {};
-  Object.keys(UPSELL).forEach(function (u) { if (porCodigo[u]) UPSELL_DE[UPSELL[u]] = u; });
+  var UPSELL = Q.UPSELL_PADRE; // { EMAIL_EMBUDOS: 'EMBUDOS', CREATIVOS: 'PAUTA', … }
+  var UPSELL_DE = {}; // padre → [upsells], en el orden del motor
+  Object.keys(UPSELL).forEach(function (u) {
+    if (porCodigo[u] && porCodigo[UPSELL[u]]) (UPSELL_DE[UPSELL[u]] = UPSELL_DE[UPSELL[u]] || []).push(u);
+  });
+  var PRODUCTO = Q.POR_PRODUCTO; // R-PRODUCTOS
+  var NOMBRE_UPSELL = {
+    EMAIL_EMBUDOS: 'Email Marketing', EMAIL_ECOMMERCE: 'Email Marketing',
+    CREATIVOS: 'Creativos para anuncios',
+    CREATIVOS_PRODUCTO: 'Creativos para páginas de producto (hasta 30)',
+    ECOMMERCE_PRODUCTO: 'Carga de productos'
+  };
+  function nombreUpsell(u) { return NOMBRE_UPSELL[u] || C.partirNombre(porCodigo[u].servicio).nombre; }
   var PACKS = Object.keys(Q.REDES_PACKS).filter(function (c) { return porCodigo[c]; });
   var MAPA_REDES = Q.mapaRedes(tarifario);
   var REDES = (tarifario.redes_adicionales || []).filter(function (r) { return MAPA_REDES[r.toLowerCase()]; });
@@ -59,6 +68,7 @@
     return {
       sel: [], plataformas: [], pack: null, redes: [],
       horas: { WEB_APP: '1', HORA: '1' },
+      productos: '30',
       precios: { CAPACITACION: { ARS: '', USD: '' } },
       bonificar: { WEB_INST: false },
       descuento: false,
@@ -77,8 +87,7 @@
         if (!elegido(c)) return;
         if (c === 'HUB' && elegido('EMBUDOS')) return; // lo agrega el motor, bonificado
         out.push(c);
-        var up = UPSELL_DE[c];
-        if (up && elegido(up)) out.push(up);
+        (UPSELL_DE[c] || []).forEach(function (up) { if (elegido(up)) out.push(up); });
       });
     });
     return out;
@@ -101,6 +110,7 @@
       horas: horas,
       precios: precios,
       bonificar: Object.keys(estado.bonificar).filter(function (c) { return estado.bonificar[c] && elegido(c); }),
+      productos: servicios.indexOf(PRODUCTO) !== -1 ? C.leerNumero(estado.productos) : undefined,
       descuentoExtraordinario: estado.descuento
     };
   }
@@ -172,18 +182,24 @@
 
   function switchUpsell(up, padre) {
     var su = porCodigo[up], sp = porCodigo[padre];
-    var pct = sp.usd ? Math.round((su.usd / sp.usd) * 100) : null;
+    var esEmail = up.indexOf('EMAIL_') === 0;
+    var pct = esEmail && sp.usd ? Math.round((su.usd / sp.usd) * 100) : null;
     var id = 'upsell-' + up;
     var precio = el('span', { class: 'sub-precio num' });
-    dinamicos.push(function () { precio.textContent = precioTexto(su, true); });
-    return el('div', { class: 'sub-fila sub-switch' }, [
+    dinamicos.push(function () { precio.textContent = precioTexto(su, true) + (up === PRODUCTO ? ' por producto' : ''); });
+    var fila = el('div', { class: 'sub-fila sub-switch' }, [
       el('label', { for: id, class: 'switch-inline' }, [
         el('input', { type: 'checkbox', role: 'switch', class: 'switch', id: id, 'data-upsell': up }),
-        el('span', { text: 'Sumar Email Marketing' + (pct ? ' (+' + pct + ' %)' : '') })
+        el('span', { text: 'Sumar ' + nombreUpsell(up) + (pct ? ' (+' + pct + ' %)' : '') })
       ]),
       precio,
       aValidar(su) ? pill('Precio a validar', 'aviso') : null
     ]);
+    if (up !== PRODUCTO) return fila;
+    return el('div', {}, [fila, el('div', { class: 'campo campo-corto', 'data-campo-productos': 'true' }, [
+      el('label', { for: 'productos', text: 'Productos a cargar' }),
+      el('input', { id: 'productos', type: 'text', inputmode: 'numeric', autocomplete: 'off', 'data-productos': '1', value: estado.productos })
+    ])]);
   }
 
   function extrasDe(s) {
@@ -198,7 +214,7 @@
       out.push(el('ol', { class: 'desglose', id: 'desglose-pauta', 'aria-label': 'Desglose por plataforma' }));
     }
     if (c === 'EMBUDOS' && porCodigo.HUB) out.push(filaIncluida(porCodigo.HUB, 'Incluido en la Gestión de Embudos de Venta'));
-    if (UPSELL_DE[c]) out.push(switchUpsell(UPSELL_DE[c], c));
+    (UPSELL_DE[c] || []).forEach(function (up) { out.push(switchUpsell(up, c)); });
     if (c === 'LANDING') out.push(el('p', { class: 'ayuda', text: 'Va bonificada si contratas Pauta + Embudos.' }));
     if (c === 'WEB_INST') {
       out.push(el('label', { class: 'switch-inline' }, [
@@ -320,7 +336,11 @@
     if (la.codigo === 'PAUTA_EXTRA') {
       return { nombre: 'Plataformas adicionales de pauta', detalle: estado.plataformas.slice(1).join(', ') + ' · ' + C.numero(la.cantidad) + ' × ' + precioTexto(t) };
     }
-    if (UPSELL[la.codigo]) return { nombre: 'Email Marketing', detalle: 'Con ' + C.partirNombre(porCodigo[UPSELL[la.codigo]].servicio).nombre };
+    if (la.codigo === PRODUCTO) {
+      var q = isFinite(la.cantidad) && la.cantidad > 0 ? C.numero(la.cantidad) + ' × ' + precioTexto(t) : 'Faltan los productos';
+      return { nombre: nombreUpsell(la.codigo), detalle: q };
+    }
+    if (UPSELL[la.codigo]) return { nombre: nombreUpsell(la.codigo), detalle: 'Con ' + C.partirNombre(porCodigo[UPSELL[la.codigo]].servicio).nombre };
     if (Q.REDES_PACKS[la.codigo]) return { nombre: n.nombre + ' · ' + nivelDe(la.codigo), detalle: incluyeDe(la.codigo) };
     if (t.modalidad === 'hora') {
       var h = isFinite(la.cantidad) && la.cantidad > 0 ? C.numero(la.cantidad) + ' h × ' + precioTexto(t) : 'Faltan las horas';
@@ -352,7 +372,7 @@
       var faltan = [];
       if (la.pendiente) faltan.push('ARS');
       if (lu.pendiente) faltan.push('USD');
-      if (faltan.length) marcas.push(pill(t.modalidad === 'hora' ? 'Faltan horas' : 'Falta precio ' + faltan.join(' y '), 'negativo'));
+      if (faltan.length) marcas.push(pill(t.modalidad === 'hora' ? 'Faltan horas' : la.codigo === PRODUCTO ? 'Faltan productos' : 'Falta precio ' + faltan.join(' y '), 'negativo'));
       var tachar = la.bonificada || la.descuento_pct || lu.descuento_pct;
       var precio = ['ARS', 'USD'].map(function (m) {
         var l = m === 'ARS' ? la : lu;
@@ -485,7 +505,9 @@
       var badge = document.querySelector('[data-badge="' + cat.id + '"]');
       if (badge) {
         var n = cat.especial === 'redes' ? (estado.pack ? 1 + estado.redes.length : 0)
-          : cat.codigos.filter(elegido).length + cat.codigos.filter(function (c) { return UPSELL_DE[c] && elegido(UPSELL_DE[c]); }).length;
+          : cat.codigos.filter(elegido).length + cat.codigos.reduce(function (acc, c) {
+            return acc + (UPSELL_DE[c] || []).filter(elegido).length;
+          }, 0);
         badge.textContent = n ? String(n) : '';
         badge.setAttribute('aria-label', n ? n + (n === 1 ? ' elegido' : ' elegidos') : '');
       }
@@ -493,12 +515,14 @@
     // HUB suelto: no se muestra si Embudos ya lo incluye.
     var hub = document.querySelector('[data-svc="HUB"]');
     if (hub) hub.hidden = elegido('EMBUDOS');
-    Object.keys(UPSELL_DE).forEach(function (padre) {
-      var sw = document.querySelector('[data-upsell="' + UPSELL_DE[padre] + '"]');
+    Object.keys(UPSELL).forEach(function (up) {
+      var sw = document.querySelector('[data-upsell="' + up + '"]');
       if (!sw) return;
-      sw.checked = elegido(UPSELL_DE[padre]);
-      sw.disabled = !elegido(padre); // R-EMAIL: sin el padre no se puede elegir
+      sw.checked = elegido(up);
+      sw.disabled = !elegido(UPSELL[up]); // R-EMAIL · R-UPSELL: sin el padre no se puede elegir
     });
+    var campoProd = document.querySelector('[data-campo-productos]');
+    if (campoProd) campoProd.hidden = !elegido(PRODUCTO);
     document.querySelectorAll('[data-plataforma]').forEach(function (b) {
       var i = estado.plataformas.indexOf(b.getAttribute('data-plataforma'));
       b.setAttribute('aria-pressed', String(i !== -1));
@@ -545,6 +569,7 @@
       if (partes.length) q.push('c=' + lista([c].concat(partes)));
     });
     if (e.bonificar.length) q.push('b=' + lista(e.bonificar));
+    if (e.productos) q.push('q=' + encodeURIComponent(String(e.productos)));
     if (e.descuentoExtraordinario) q.push('d=1');
     if (estado.moneda !== 'ARS') q.push('m=' + estado.moneda);
     return q.length ? '?' + q.join('&') : '';
@@ -562,8 +587,9 @@
       if (cartaCodigos.indexOf(c) !== -1 || UPSELL[c]) { if (!elegido(c)) estado.sel.push(c); }
       else if (Q.REDES_PACKS[c] && porCodigo[c]) estado.pack = c;
     });
-    // R-EMAIL: el upsell sin su padre no entra
+    // R-EMAIL · R-UPSELL: el upsell sin su padre no entra
     estado.sel = estado.sel.filter(function (c) { return !UPSELL[c] || elegido(UPSELL[c]); });
+    if (C.leerNumero(qs.get('q') || '')) estado.productos = qs.get('q');
     if (elegido('PAUTA')) {
       partes('p').forEach(function (p) {
         if (tarifario.plataformas.indexOf(p) !== -1 && estado.plataformas.indexOf(p) === -1) estado.plataformas.push(p);
@@ -641,7 +667,7 @@
         alternar(estado.sel, c);
         if (c === 'PAUTA' && elegido('PAUTA') && !estado.plataformas.length) estado.plataformas = [tarifario.plataformas[0]];
         if (c === 'EMBUDOS' && elegido('EMBUDOS')) estado.sel = estado.sel.filter(function (x) { return x !== 'HUB'; });
-        if (UPSELL_DE[c] && !elegido(c)) estado.sel = estado.sel.filter(function (x) { return x !== UPSELL_DE[c]; });
+        if (UPSELL_DE[c] && !elegido(c)) estado.sel = estado.sel.filter(function (x) { return UPSELL_DE[c].indexOf(x) === -1; });
         render();
         return;
       }
@@ -666,6 +692,7 @@
       var t = ev.target;
       var h = t.getAttribute('data-horas');
       if (h) { estado.horas[h] = t.value; render(); return; }
+      if (t.hasAttribute('data-productos')) { estado.productos = t.value; render(); return; }
       var p = t.getAttribute('data-precio');
       if (p) { estado.precios[p][t.getAttribute('data-moneda')] = t.value; render(); }
     });
@@ -685,6 +712,7 @@
       estado.moneda = moneda;
       document.querySelectorAll('[data-horas]').forEach(function (i) { i.value = estado.horas[i.getAttribute('data-horas')]; });
       document.querySelectorAll('[data-precio]').forEach(function (i) { i.value = ''; });
+      document.querySelectorAll('[data-productos]').forEach(function (i) { i.value = estado.productos; });
       render();
     });
     toggle.addEventListener('click', function () { abrirHoja(toggle.getAttribute('aria-expanded') !== 'true'); });
@@ -712,6 +740,7 @@
   leerQuery();
   // Valores de campos que vienen del link
   document.querySelectorAll('[data-horas]').forEach(function (i) { i.value = estado.horas[i.getAttribute('data-horas')]; });
+  document.querySelectorAll('[data-productos]').forEach(function (i) { i.value = estado.productos; });
   document.querySelectorAll('[data-precio]').forEach(function (i) {
     var p = estado.precios[i.getAttribute('data-precio')] || {};
     i.value = p[i.getAttribute('data-moneda')] || '';

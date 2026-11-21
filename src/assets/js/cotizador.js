@@ -4,8 +4,8 @@
  * No tiene precios ni reglas propias: todo sale de tarifario_v1.json (generado por
  * MMG_Base_Operaciones/_engine/export_precotizadora.py). Este archivo implementa las
  * reglas escritas en tarifario.reglas, en el mismo orden que quote_calculator.py:
- *   P1 · ICT_ARS · PLATAFORMAS · R-EMAIL · R-REDES · HUB_EN_EMBUDOS · LANDING_BONIF ·
- *   BONIFICAR · HORAS · CASO_A_CASO · P2 · TOTALES · P4
+ *   P1 · ICT_ARS · PLATAFORMAS · R-EMAIL · R-UPSELL · R-PRODUCTOS · R-REDES · HUB_EN_EMBUDOS ·
+ *   LANDING_BONIF · BONIFICAR · HORAS · CASO_A_CASO · P2 · TOTALES · P4
  *
  * P4 (precio de lanzamiento) no cambia ningún cálculo: los totales salen siempre de los
  * montos del archivo. promoLanzamiento() solo da el precio real (tachado) y el ahorro.
@@ -26,7 +26,12 @@
   var BONIFICABLES = ['WEB_INST']; // regla BONIFICAR
   var AUTOMATICOS = ['PAUTA_EXTRA']; // regla PLATAFORMAS: no se elige suelto
   // regla R-EMAIL: el upsell de email marketing solo va con su servicio padre
-  var UPSELL_PADRE = { EMAIL_EMBUDOS: 'EMBUDOS', EMAIL_ECOMMERCE: 'ECOMMERCE' };
+  // regla R-UPSELL: creativos como upsell de Pauta y de E-commerce; la carga de productos va con el desarrollo
+  var UPSELL_PADRE = {
+    EMAIL_EMBUDOS: 'EMBUDOS', EMAIL_ECOMMERCE: 'ECOMMERCE',
+    CREATIVOS: 'PAUTA', CREATIVOS_PRODUCTO: 'ECOMMERCE', ECOMMERCE_PRODUCTO: 'ECOMMERCE_DEV'
+  };
+  var POR_PRODUCTO = 'ECOMMERCE_PRODUCTO'; // regla R-PRODUCTOS: × cantidad de productos
   // regla R-REDES: un solo pack; cada red adicional suma REDES_X_<RED>_<nivel> del mismo nivel
   var REDES_PACKS = { REDES_ESENCIAL: 'E', REDES_CRECIMIENTO: 'C', REDES_DOMINIO: 'D' };
   var PREFIJO_RED_X = 'REDES_X_'; // no se eligen sueltas
@@ -114,6 +119,11 @@
     Object.keys(entrada.horas || {}).forEach(function (k) {
       qty[k.toUpperCase()] = Number(entrada.horas[k]);
     });
+    // R-PRODUCTOS: sin cantidad válida la línea queda pendiente y no suma
+    if (codes.indexOf(POR_PRODUCTO) !== -1) {
+      qty[POR_PRODUCTO] = entrada.productos === undefined || entrada.productos === null || entrada.productos === ''
+        ? NaN : Number(entrada.productos);
+    }
 
     // PLATAFORMAS
     if (codes.indexOf('PAUTA') !== -1) {
@@ -125,7 +135,7 @@
       if (!plataformas.length) advertencias.push('Pauta sin plataformas elegidas: se cotiza solo la plataforma base.');
     }
 
-    // R-EMAIL
+    // R-EMAIL · R-UPSELL
     Object.keys(UPSELL_PADRE).forEach(function (up) {
       var padre = UPSELL_PADRE[up];
       if (codes.indexOf(up) !== -1 && codes.indexOf(padre) === -1) {
@@ -198,7 +208,7 @@
         return;
       }
       if (!(isFinite(cantidad) && cantidad > 0)) {
-        linea.pendiente = 'Falta la cantidad de horas';
+        linea.pendiente = c === POR_PRODUCTO ? 'Falta la cantidad de productos' : 'Falta la cantidad de horas';
         lineas.push(linea);
         return;
       }
@@ -273,7 +283,7 @@
     (entrada.servicios || []).forEach(function (c) {
       c = String(c).toUpperCase();
       if (!tar[c] || AUTOMATICOS.indexOf(c) !== -1 || c.indexOf(PREFIJO_RED_X) === 0 || codes.indexOf(c) !== -1) return;
-      if (UPSELL_PADRE[c] && (entrada.servicios || []).indexOf(UPSELL_PADRE[c]) === -1) return; // R-EMAIL
+      if (UPSELL_PADRE[c] && (entrada.servicios || []).indexOf(UPSELL_PADRE[c]) === -1) return; // R-EMAIL · R-UPSELL
       if (c === 'HUB' && (entrada.servicios || []).indexOf('EMBUDOS') !== -1) return; // lo agrega el cotizador
       codes.push(c);
     });
@@ -289,6 +299,10 @@
     (entrada.bonificar || []).forEach(function (b) {
       if (codes.indexOf(b) !== -1 && BONIFICABLES.indexOf(b) !== -1) partes.push('--bonificar ' + b);
     });
+    if (codes.indexOf(POR_PRODUCTO) !== -1) {
+      var np = Number(entrada.productos);
+      partes.push('--productos ' + (isFinite(np) && np > 0 ? String(np) : 'N'));
+    }
     if (entrada.descuentoExtraordinario) partes.push('--descuento-extraordinario');
     codes.forEach(function (c) {
       if (tar[c].modalidad === 'hora') {
@@ -314,6 +328,7 @@
     mapaRedes: mapaRedes,
     promoLanzamiento: promoLanzamiento,
     UPSELL_PADRE: UPSELL_PADRE,
+    POR_PRODUCTO: POR_PRODUCTO,
     REDES_PACKS: REDES_PACKS,
     MONEDAS: MONEDAS
   };

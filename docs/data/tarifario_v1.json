@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generado": "2026-11-21T01:42:11",
+    "generado": "2026-11-21T17:48:24",
     "generador": "MMG_Base_Operaciones/_engine/export_precotizadora.py",
     "fuente": "_boveda_mmg/02_TARIFARIO_Y_REGLAS_DE_COTIZACION.md §10 (+ §1 para ICT_IPHONE*)",
     "regla": "Archivo de solo lectura para la app. No editar a mano: cambiar el tarifario y regenerar."
@@ -87,7 +87,7 @@
       "caso_a_caso": false,
       "ars_derivado_de_usd": false,
       "estado": "CONFIRMADO",
-      "nota": "Sainato · cantidad de anuncios a criterio de Jared · el cliente entrega banco de imágenes y videos a pedido",
+      "nota": "Sainato · cantidad de anuncios a criterio de Jared · el cliente entrega banco de imágenes y videos a pedido · upsell de PAUTA: solo junto con PAUTA (R-UPSELL)",
       "admite_descuento_extraordinario": true
     },
     {
@@ -210,6 +210,42 @@
       "ars_derivado_de_usd": false,
       "estado": "CONFIRMADO",
       "nota": "+50 % de ECOMMERCE · solo junto con ECOMMERCE (R-EMAIL)",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "CREATIVOS_PRODUCTO",
+      "servicio": "Creativos para páginas de producto (upsell de E-commerce, hasta 30 productos)",
+      "modalidad": "mensual",
+      "ars": 50000.0,
+      "usd": 35.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Mismo precio que CREATIVOS · solo junto con ECOMMERCE (R-UPSELL)",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "ECOMMERCE_DEV",
+      "servicio": "Desarrollo de e-commerce",
+      "modalidad": "unico",
+      "ars": 150000.0,
+      "usd": 100.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Mismo precio que WEB_INST · la carga de productos va aparte con ECOMMERCE_PRODUCTO",
+      "admite_descuento_extraordinario": true
+    },
+    {
+      "codigo": "ECOMMERCE_PRODUCTO",
+      "servicio": "Carga de productos del e-commerce (por producto)",
+      "modalidad": "unico",
+      "ars": 1500.0,
+      "usd": 1.0,
+      "caso_a_caso": false,
+      "ars_derivado_de_usd": false,
+      "estado": "CONFIRMADO",
+      "nota": "Precio fijo en las dos monedas · × cantidad de productos (--productos N) · solo junto con ECOMMERCE_DEV (R-UPSELL, R-PRODUCTOS)",
       "admite_descuento_extraordinario": true
     },
     {
@@ -501,6 +537,14 @@
     {
       "id": "R-REDES",
       "texto": "Un solo pack de redes por cotización (REDES_ESENCIAL, REDES_CRECIMIENTO o REDES_DOMINIO; Instagram + Facebook incluidas). Cada red adicional elegida suma la línea REDES_X_<RED>_<nivel> del MISMO nivel del pack (E, C o D); las REDES_X_* no se eligen sueltas."
+    },
+    {
+      "id": "R-UPSELL",
+      "texto": "CREATIVOS solo se elige si está PAUTA; CREATIVOS_PRODUCTO (hasta 30 productos) solo si está ECOMMERCE; ECOMMERCE_PRODUCTO solo si está ECOMMERCE_DEV. Sin el padre, la opción queda deshabilitada."
+    },
+    {
+      "id": "R-PRODUCTOS",
+      "texto": "ECOMMERCE_PRODUCTO (modalidad unico) se multiplica por la cantidad de productos a cargar (entrada.productos; en quote_calculator, --productos N). Sin cantidad válida no suma."
     },
     {
       "id": "HORAS",
